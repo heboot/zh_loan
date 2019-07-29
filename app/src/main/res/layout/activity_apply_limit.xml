@@ -22,43 +22,155 @@
             app:layout_constraintTop_toTopOf="parent"></include>
 
         <android.support.v7.widget.CardView
-            app:cardCornerRadius="@dimen/x5"
+            android:id="@+id/cv_content"
+            android:layout_width="@dimen/x355"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y91"
-            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="@dimen/x5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_width="@dimen/x355"
-            android:layout_height="@dimen/y150">
+            app:layout_constraintTop_toTopOf="parent">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:textSize="@dimen/x13"
+                    android:id="@+id/tv_limit_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x15"
+                    android:layout_marginTop="@dimen/y22"
                     android:text="额度 5000~50000"
-                    android:layout_marginLeft="@dimen/x15"
-                    android:layout_marginTop="@dimen/y22"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:textColor="#888888"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
                     android:textSize="@dimen/x13"
-                    android:text="期限(月)"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginRight="@dimen/x81"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_deadline_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_marginTop="@dimen/y22"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginRight="@dimen/x81"
+                    android:text="期限(月)"
                     android:textColor="#888888"
+                    android:textSize="@dimen/x13"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <EditText
+                    android:id="@+id/et_money"
+                    android:layout_width="@dimen/x100"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y15"
+                    android:background="@null"
+                    android:text="111111"
+                    android:textColor="#666565"
+                    android:textSize="@dimen/x22"
+                    app:layout_constraintLeft_toLeftOf="@+id/tv_limit_tip"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_limit_tip" />
+
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:text="元"
+                    android:textColor="#303030"
+                    android:textSize="@dimen/x17"
+                    app:layout_constraintBottom_toBottomOf="@+id/et_money"
+                    app:layout_constraintLeft_toRightOf="@+id/et_money"
+                    app:layout_constraintTop_toTopOf="@+id/et_money" />
+
+
+                <TextView
+                    android:id="@+id/tv_deadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y13"
+                    android:text="6个月"
+                    android:textColor="#666565"
+                    android:textSize="@dimen/x22"
+                    app:layout_constraintLeft_toLeftOf="@+id/tv_deadline_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_deadline_title" />
+
+                <View
+                    android:layout_width="@dimen/x12"
+                    android:layout_height="@dimen/y8"
+                    android:layout_marginLeft="@dimen/x12"
+                    android:background="@mipmap/icon_arrow_down"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_deadline"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_deadline"
+                    app:layout_constraintTop_toTopOf="@+id/tv_deadline"></View>
+
+                <View
+                    android:id="@+id/v_line"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y1"
+                    android:layout_marginLeft="@dimen/x22"
+                    android:layout_marginTop="@dimen/y10"
+                    android:layout_marginRight="@dimen/x22"
+                    android:background="#ffe5e5e5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_money"></View>
+
+                <TextView
+                    android:layout_marginTop="@dimen/y15"
+                    app:layout_constraintLeft_toLeftOf="@+id/v_line"
+                    app:layout_constraintTop_toBottomOf="@+id/v_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="应还款"
+                    android:textColor="#ff888888"
+                    android:textSize="@dimen/x13"></TextView>
+
+                <TextView
+                    android:id="@+id/tv_repayment_tip"
+                    app:layout_constraintLeft_toLeftOf="@+id/v_line"
+                    android:layout_marginTop="@dimen/y44"
+                    app:layout_constraintTop_toBottomOf="@+id/v_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5600(利率:0.04%)"
+                    android:textColor="#ff666565"
+                    android:textSize="@dimen/x15"></TextView>
+                <View
+                    android:id="@+id/v_line2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y1"
+                    android:layout_marginLeft="@dimen/x22"
+                    android:layout_marginTop="@dimen/y10"
+                    android:layout_marginRight="@dimen/x22"
+                    android:background="#ffe5e5e5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_repayment_tip"></View>
+
+                <View
+                    app:layout_constraintTop_toBottomOf="@+id/v_line2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y13"></View>
 
             </android.support.constraint.ConstraintLayout>
 
         </android.support.v7.widget.CardView>
+
+        <TextView
+            android:gravity="center"
+            android:text="立即申请"
+            android:textColor="#fff"
+            android:textSize="@dimen/x14"
+            android:layout_marginTop="@dimen/y24"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_content"
+            android:background="@drawable/bg_login_btn"
+            android:layout_width="@dimen/x311"
+            android:layout_height="@dimen/y50" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
