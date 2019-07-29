@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/v_bg"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y70"
+            android:background="@drawable/bg_account"></View>
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y25"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></include>
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"
+            android:layout_marginTop="@dimen/y12"
+            android:background="#E5E5E5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_bg"></View>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x18"
+            android:layout_marginTop="@dimen/y20"
+            android:text="还款"
+            android:textColor="#333333"
+            android:textSize="@dimen/x16"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+        <EditText
+            android:id="@+id/et_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@null"
+            android:inputType="numberDecimal"
+            android:text="222"
+            android:textColor="#333333"
+            android:textSize="@dimen/x24"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <View
+            android:id="@+id/lin2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginTop="@dimen/y8"
+            android:layout_marginRight="@dimen/x10"
+            android:background="#ffd2d2d2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_money"></View>
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x7"
+            android:layout_marginTop="@dimen/y15"
+            android:text="可提现"
+            android:textColor="#A6A6A6"
+            android:textSize="@dimen/x13"
+            app:layout_constraintLeft_toLeftOf="@+id/lin2"
+            app:layout_constraintTop_toBottomOf="@+id/lin2" />
+
+        <View
+            android:id="@+id/lin3"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"
+            android:layout_marginTop="@dimen/y15"
+            android:background="#E5E5E5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tip"></View>
+
+        <TextView
+            android:gravity="center"
+            android:text="确认还款"
+            android:textColor="#fff"
+            android:textSize="@dimen/x14"
+            android:id="@+id/tv_repayment"
+            android:layout_width="@dimen/x311"
+            android:layout_height="@dimen/y50"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@drawable/bg_login_btn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lin3" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
