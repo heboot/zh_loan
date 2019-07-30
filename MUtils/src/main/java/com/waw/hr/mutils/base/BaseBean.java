@@ -7,19 +7,8 @@ package com.waw.hr.mutils.base;
 public class BaseBean<T> {
 
     private int code;
-    private String message;
-    private String time;
-    private String sign_key;
+    private String msg;
     private T data;
-    private String service_time;
-
-    public String getService_time() {
-        return service_time;
-    }
-
-    public void setService_time(String service_time) {
-        this.service_time = service_time;
-    }
 
     public int getCode() {
         return code;
@@ -29,21 +18,12 @@ public class BaseBean<T> {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-
-    public String getSign_key() {
-        return sign_key;
-    }
-
-    public void setSign_key(String sign_key) {
-        this.sign_key = sign_key;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public T getData() {
@@ -52,13 +32,5 @@ public class BaseBean<T> {
 
     public void setData(T data) {
         this.data = data;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 }

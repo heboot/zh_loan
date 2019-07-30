@@ -8,7 +8,7 @@
         <View
             android:id="@+id/v_bg"
             android:layout_width="0dp"
-            android:layout_height="@dimen/y70"
+            android:layout_height="@dimen/y63"
             android:background="@drawable/bg_account"></View>
 
         <include
@@ -22,24 +22,234 @@
             app:layout_constraintTop_toTopOf="parent"></include>
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/x10"
-            app:layout_constraintTop_toBottomOf="@+id/v_bg"
+            android:id="@+id/llyt1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
             android:layout_marginTop="@dimen/y20"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:orientation="horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            app:layout_constraintTop_toBottomOf="@+id/v_bg">
 
             <TextView
-
-                android:textSize="@dimen/x15"
-                android:textColor="#6B7072"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="您的姓名"
+                android:textColor="#6B7072"
+                android:textSize="@dimen/x15" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y40"
+                android:layout_marginLeft="@dimen/x38"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入"
+                android:textColorHint="#C9C9CE"
+                android:textColor="#000000"
+                android:textSize="@dimen/x15" />
 
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llyt2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y20"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llyt1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联系电话"
+                android:textColor="#6B7072"
+                android:textSize="@dimen/x15" />
+
+            <EditText
+                android:id="@+id/et_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y40"
+                android:layout_marginLeft="@dimen/x38"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入"
+                android:inputType="number"
+                android:textColorHint="#C9C9CE"
+                android:textColor="#000000"
+                android:textSize="@dimen/x15" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llyt3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y20"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llyt2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关联人电话"
+                android:textColor="#6B7072"
+                android:textSize="@dimen/x15" />
+
+            <EditText
+                android:id="@+id/et_relevance_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y40"
+                android:layout_marginLeft="@dimen/x25"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入"
+                android:inputType="number"
+                android:textColorHint="#C9C9CE"
+                android:textColor="#000000"
+                android:textSize="@dimen/x15" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llyt4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y20"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llyt3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="现居住址"
+                android:textColor="#6B7072"
+                android:textSize="@dimen/x15" />
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y40"
+                android:layout_marginLeft="@dimen/x38"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入"
+                android:textColorHint="#C9C9CE"
+                android:textColor="#000000"
+                android:textSize="@dimen/x15" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llyt5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y20"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llyt4">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="银行卡号"
+                android:textColor="#6B7072"
+                android:textSize="@dimen/x15" />
+
+            <EditText
+                android:id="@+id/et_bank_num"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y40"
+                android:layout_marginLeft="@dimen/x38"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入"
+                android:inputType="number"
+                android:textColorHint="#C9C9CE"
+                android:textColor="#000000"
+                android:textSize="@dimen/x15" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llyt6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y20"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llyt5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="身份证照"
+                android:textColor="#6B7072"
+                android:textSize="@dimen/x15" />
+
+
+            <ImageView
+                android:id="@+id/iv_idcard_face"
+                android:layout_width="@dimen/x110"
+                android:layout_height="@dimen/y80"
+                android:layout_marginLeft="@dimen/x35"
+                android:background="@mipmap/id_card_face" />
+
+            <ImageView
+                android:id="@+id/iv_idcard_reverse"
+                android:layout_width="@dimen/x110"
+                android:layout_height="@dimen/y80"
+                android:layout_marginLeft="@dimen/x9"
+                android:background="@mipmap/id_card_reverse" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="@dimen/x311"
+            android:layout_height="@dimen/y50"
+            android:layout_marginTop="@dimen/y40"
+            android:background="@drawable/bg_login_btn"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="#fff"
+            android:textSize="@dimen/x15"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llyt6" />
+
 
     </android.support.constraint.ConstraintLayout>
 </layout>

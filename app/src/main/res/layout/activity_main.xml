@@ -57,139 +57,161 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"></View>
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/clyt_1"
+        <android.support.v7.widget.CardView
+            android:id="@+id/clyt_info"
             android:layout_width="@dimen/x140"
             android:layout_height="@dimen/y200"
             android:layout_marginRight="@dimen/x15"
             android:layout_marginBottom="@dimen/y30"
-            android:background="@drawable/bg_main_item"
+            app:cardCornerRadius="@dimen/x10"
             app:layout_constraintRight_toLeftOf="@+id/v_center"
             app:layout_constraintTop_toBottomOf="@+id/iv_avatar">
 
-            <ImageView
-                android:id="@+id/icon1"
-                android:layout_width="@dimen/x89"
-                android:layout_height="@dimen/y74"
-                android:layout_marginTop="@dimen/y48"
-                android:background="@mipmap/icon_info"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/y200">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y15"
-                android:text="信息完善"
-                android:textColor="#1D1E2C"
-                android:textSize="@dimen/x18"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/icon1" />
+                <ImageView
+                    android:id="@+id/icon1"
+                    android:layout_width="@dimen/x89"
+                    android:layout_height="@dimen/y74"
+                    android:layout_marginTop="@dimen/y48"
+                    android:background="@mipmap/icon_info"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y15"
+                    android:text="信息完善"
+                    android:textColor="#1D1E2C"
+                    android:textSize="@dimen/x18"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/icon1" />
 
 
-        </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
 
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/clyt_2"
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/clyt_balance"
             android:layout_width="@dimen/x140"
             android:layout_height="@dimen/y200"
             android:layout_marginLeft="@dimen/x15"
             android:layout_marginBottom="@dimen/y30"
-            android:background="@drawable/bg_main_item"
             app:layout_constraintLeft_toRightOf="@+id/v_center"
             app:layout_constraintTop_toBottomOf="@+id/iv_avatar">
 
-            <ImageView
-                android:id="@+id/icon2"
-                android:layout_width="@dimen/x89"
-                android:layout_height="@dimen/y74"
-                android:layout_marginTop="@dimen/y48"
-                android:background="@mipmap/icon_balance"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/y200">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y15"
-                android:text="我的余额"
-                android:textColor="#1D1E2C"
-                android:textSize="@dimen/x18"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/icon2" />
+                <ImageView
+                    android:id="@+id/icon2"
+                    android:layout_width="@dimen/x89"
+                    android:layout_height="@dimen/y74"
+                    android:layout_marginTop="@dimen/y48"
+                    android:background="@mipmap/icon_balance"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y15"
+                    android:text="我的余额"
+                    android:textColor="#1D1E2C"
+                    android:textSize="@dimen/x18"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/icon2" />
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/clyt_3"
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/clyt_edu"
             android:layout_width="@dimen/x140"
             android:layout_height="@dimen/y200"
             android:layout_marginTop="@dimen/y27"
             android:layout_marginRight="@dimen/x15"
-            android:background="@drawable/bg_main_item"
             app:layout_constraintRight_toLeftOf="@+id/v_center"
-            app:layout_constraintTop_toBottomOf="@+id/clyt_1">
+            app:layout_constraintTop_toBottomOf="@+id/clyt_info">
 
-            <ImageView
-                android:id="@+id/icon3"
-                android:layout_width="@dimen/x74"
-                android:layout_height="@dimen/y82"
-                android:layout_marginTop="@dimen/y43"
-                android:background="@mipmap/icon_shenqing"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/y200">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y15"
-                android:text="申请额度"
-                android:textColor="#1D1E2C"
-                android:textSize="@dimen/x18"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/icon3" />
+                <ImageView
+                    android:id="@+id/icon3"
+                    android:layout_width="@dimen/x74"
+                    android:layout_height="@dimen/y82"
+                    android:layout_marginTop="@dimen/y43"
+                    android:background="@mipmap/icon_shenqing"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y15"
+                    android:text="申请额度"
+                    android:textColor="#1D1E2C"
+                    android:textSize="@dimen/x18"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/icon3" />
 
 
-        </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/clyt_4"
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/clyt_service"
             android:layout_width="@dimen/x140"
             android:layout_height="@dimen/y200"
             android:layout_marginLeft="@dimen/x15"
             android:layout_marginTop="@dimen/y27"
-            android:background="@drawable/bg_main_item"
+            app:cardCornerRadius="@dimen/x10"
             app:layout_constraintLeft_toRightOf="@+id/v_center"
-            app:layout_constraintTop_toBottomOf="@+id/clyt_1">
+            app:layout_constraintTop_toBottomOf="@+id/clyt_info">
 
-            <ImageView
-                android:id="@+id/icon4"
-                android:layout_width="@dimen/x93"
-                android:layout_height="@dimen/y80"
-                android:layout_marginTop="@dimen/y46"
-                android:background="@mipmap/icon_kefu"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <android.support.constraint.ConstraintLayout
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y15"
-                android:text="我的余额"
-                android:textColor="#1D1E2C"
-                android:textSize="@dimen/x18"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/icon4" />
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/y200">
 
-        </android.support.constraint.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/icon4"
+                    android:layout_width="@dimen/x93"
+                    android:layout_height="@dimen/y80"
+                    android:layout_marginTop="@dimen/y46"
+                    android:background="@mipmap/icon_kefu"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y15"
+                    android:text="在线客服"
+                    android:textColor="#1D1E2C"
+                    android:textSize="@dimen/x18"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/icon4" />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -53,13 +53,13 @@ public class HttpUtils {
     private static HttpUtils instance;
     private Gson gson;
     private Context context;
-    private Object guodongHttps;
+    private Object mHttps;
     private Object otherHttps;
     //    private Object dongtingHttps;
     private IpmlTokenGetListener listener;
     private static boolean debug;
     // gankio、豆瓣、（轮播图）
-    private final static String API_GUODONG = BuildConfig.HTTP_SERVER;
+    private final static String API_URL = BuildConfig.HTTP_SERVER;
 //    private final static String API_DOUBAN = "Https://api.douban.com/";
 //    private final static String API_TING = "https://tingapi.ting.baidu.com/v1/restserver/";
     /**
@@ -90,14 +90,14 @@ public class HttpUtils {
     }
 
     public <T> T getGuodongServer(Class<T> a) {
-        if (guodongHttps == null) {
+        if (mHttps == null) {
             synchronized (HttpUtils.class) {
-                if (guodongHttps == null) {
-                    guodongHttps = getBuilder(API_GUODONG).build().create(a);
+                if (mHttps == null) {
+                    mHttps = getBuilder(API_URL).build().create(a);
                 }
             }
         }
-        return (T) guodongHttps;
+        return (T) mHttps;
     }
 
 //    public <T> T getOtherServer(Class<T> a) {

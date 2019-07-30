@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import com.waw.hr.mutils.rxbus.RxBus;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.zh.loan.utils.SignUtils;
 
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public  abstract class BaseActivity<T extends ViewDataBinding> extends FragmentA
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        params = SignUtils.getNormalParams();
+        params = SignUtils.getNormalParams();
         initContentView();
         initUI();
         initData();

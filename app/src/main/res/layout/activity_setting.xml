@@ -3,12 +3,13 @@
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:background="#E5E5E5"
         android:layout_height="match_parent">
 
         <View
             android:id="@+id/v_bg"
             android:layout_width="0dp"
-            android:layout_height="@dimen/y250"
+            android:layout_height="@dimen/y70"
             android:background="@drawable/bg_account"></View>
 
         <include
@@ -21,64 +22,36 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"></include>
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x18"
-            android:layout_marginTop="@dimen/y86"
-            android:text="余额账户(元)"
-            android:textColor="#000000"
-            android:textSize="@dimen/x14"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y40"
-            android:text="5500.33"
-            android:textSize="@dimen/x55"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        　
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/clyt1"
+            android:background="#fff"
+            android:id="@+id/clyt_about"
             android:layout_width="0dp"
-            android:layout_height="@dimen/y50"
-            android:gravity="center_vertical"
+            android:layout_height="@dimen/y49"
+            android:gravity="center_vertical|left"
             android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/v_bg">
 
-            <ImageView
-                android:id="@+id/icon1"
-                android:layout_width="@dimen/x26"
-                android:layout_height="@dimen/y21"
-                android:layout_marginLeft="@dimen/x18"
-                android:background="@mipmap/icon_cash"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x10"
-                android:text="我要提现"
+                android:layout_marginLeft="@dimen/x18"
+                android:text="关于我们"
                 android:textColor="#000000"
                 android:textSize="@dimen/x16"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/icon1"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:layout_width="@dimen/x7"
                 android:layout_height="@dimen/y13"
                 android:layout_gravity="right"
-                android:background="@mipmap/icon_arrow_right"
                 android:layout_marginRight="@dimen/x19"
+                android:background="@mipmap/icon_arrow_right"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></View>
@@ -90,59 +63,88 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"></View>
-
         </android.support.constraint.ConstraintLayout>
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/clyt2"
+        <android.support.constraint.ConstraintLayout android:background="#fff"
+            android:id="@+id/clyt_version"
             android:layout_width="0dp"
-            android:layout_height="@dimen/y50"
-            android:gravity="center_vertical"
+            android:layout_height="@dimen/y49"
+            android:gravity="center_vertical|left"
             android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clyt1">
+            app:layout_constraintTop_toBottomOf="@+id/clyt_about">
 
-            <ImageView
-                android:id="@+id/icon2"
-                android:layout_width="@dimen/x24"
-                android:layout_height="@dimen/y24"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/x18"
-                android:background="@mipmap/icon_bill_balance"
+                android:text="版本号"
+                android:textColor="#000000"
+                android:textSize="@dimen/x16"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x10"
-                android:text="我的账单"
-                android:textColor="#000000"
-                android:textSize="@dimen/x16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/icon2"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:background="@mipmap/icon_arrow_right"
                 android:layout_width="@dimen/x7"
                 android:layout_height="@dimen/y13"
                 android:layout_gravity="right"
                 android:layout_marginRight="@dimen/x19"
+                android:textSize="@dimen/x15"
+                android:textColor="#BEBEBE"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></View>
+                app:layout_constraintTop_toTopOf="parent"></TextView>
 
             <View
-
                 android:layout_width="0dp"
                 android:layout_height="@dimen/y1"
                 android:background="#E5E5E5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"></View>
+        </android.support.constraint.ConstraintLayout>
 
+        <android.support.constraint.ConstraintLayout  android:background="#fff"
+            android:id="@+id/clyt_logout"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y49"
+            android:gravity="center_vertical|left"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clyt_version">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x18"
+                android:text="退出登录"
+                android:textColor="#000000"
+                android:textSize="@dimen/x16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="@dimen/x7"
+                android:layout_height="@dimen/y13"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/x19"
+                android:background="@mipmap/icon_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></View>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y1"
+                android:background="#E5E5E5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"></View>
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

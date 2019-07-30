@@ -67,8 +67,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/y15"
                     android:background="@null"
-                    android:text="111111"
                     android:textColor="#666565"
+                    android:hint="请输入"
                     android:textSize="@dimen/x22"
                     app:layout_constraintLeft_toLeftOf="@+id/tv_limit_tip"
                     app:layout_constraintTop_toBottomOf="@+id/tv_limit_tip" />
