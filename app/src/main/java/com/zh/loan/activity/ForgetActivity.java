@@ -18,6 +18,7 @@ import com.zh.loan.utils.ObserableUtils;
 import com.zh.loan.utils.SignUtils;
 import com.zh.loan.utils.StringUtils;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -26,7 +27,9 @@ import io.reactivex.schedulers.Schedulers;
 public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
 
     private String code;
+    private Observer countDownObserver;
 
+    private Observable observable;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_forget;
@@ -40,7 +43,32 @@ public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
 
     @Override
     public void initData() {
+        countDownObserver = new Observer<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
 
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                if (integer <= 0) {
+                    binding.tvSendSms.setEnabled(true);
+                    binding.tvSendSms.setText("获取验证码");
+                } else {
+                    binding.tvSendSms.setText(integer + "");
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
     }
 
     @Override
@@ -118,7 +146,7 @@ public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
             tipDialog.show();
             return;
         }
-        params = SignUtils.getNormalParams();
+
         params.put(MKey.PHONE, binding.etMobile.getText());
 
         HttpClient.Builder.getServer().getcode(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
@@ -127,39 +155,20 @@ public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
 
                 code = baseBean.getData();
 
-                ObserableUtils.countdownByMILLISECONDS(60).subscribe(new Observer<Integer>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                observable = ObserableUtils.countdown(60);
 
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-                        if (integer <= 0) {
-                            binding.tvSendSms.setEnabled(true);
-                            binding.tvSendSms.setText("获取验证码");
-                        } else {
-                            binding.tvSendSms.setText(integer + "");
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                observable.subscribe(countDownObserver);
             }
 
             @Override
             public void onError(BaseBean<String> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(ForgetActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
             }
         });
 
 
     }
+
+
 }

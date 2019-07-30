@@ -20,9 +20,13 @@ public class MKey {
 
     public static final String BANK_CARD = "bank_card";
 
+    public static final String BALANCE = "balance";
+
     public static final String TYPE = "type";
 
     public static final String CODE = "code";
 
     public static final String PASSWORD = "password";
+
+    public static final String NUM = "num";
 }

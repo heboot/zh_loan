@@ -38,6 +38,8 @@
         <activity android:name=".activity.RegisterActivity"></activity>
 
         <activity android:name=".activity.ForgetActivity"></activity>
+
+        <activity android:name=".activity.CashActivity"></activity>
     </application>
 
 </manifest>

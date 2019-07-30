@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_marginTop="@dimen/y22"
-                    android:text="额度 5000~50000"
+                    android:text="额度"
                     android:textColor="#888888"
                     android:textSize="@dimen/x13"
                     app:layout_constraintLeft_toLeftOf="parent"
