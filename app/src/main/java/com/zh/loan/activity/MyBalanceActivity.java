@@ -5,6 +5,7 @@ import com.waw.hr.mutils.MStatusBarUtils;
 import com.zh.loan.R;
 import com.zh.loan.base.BaseActivity;
 import com.zh.loan.databinding.ActivityBalanceBinding;
+import com.zh.loan.utils.IntentUtils;
 
 public class MyBalanceActivity extends BaseActivity<ActivityBalanceBinding> {
     @Override
@@ -28,6 +29,12 @@ public class MyBalanceActivity extends BaseActivity<ActivityBalanceBinding> {
     public void initListener() {
         binding.includeToolbar.vBack.setOnClickListener((v) -> {
             finish();
+        });
+        binding.clyt1.setOnClickListener((v)->{
+            IntentUtils.doIntent(this,CashActivity.class);
+        });
+        binding.clyt2.setOnClickListener((v)->{
+            IntentUtils.doIntent(this,MyBillActivity.class);
         });
     }
 }

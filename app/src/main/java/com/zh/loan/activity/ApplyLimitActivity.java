@@ -52,6 +52,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
                     public void onClick(DialogInterface dialogInterface, int i) {
                         type = i + 1;
                         binding.tvDeadline.setText(items[i]);
+                        chooseTimeDialog.dismiss();
                     }
                 })
                 .create();

@@ -5,16 +5,24 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y76">
 
-
         <ImageView
             android:id="@+id/iv_icon"
             android:layout_width="@dimen/x45"
             android:layout_height="@dimen/y45"
             android:layout_marginLeft="@dimen/x18"
-            android:background="@color/qmui_config_color_red"
+            android:background="@drawable/bg_item_refund"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="@dimen/x26"
+            android:layout_height="@dimen/y23"
+            android:background="@mipmap/icon_refund"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_icon"
+            app:layout_constraintRight_toRightOf="@+id/iv_icon"
+            app:layout_constraintTop_toTopOf="@+id/iv_icon" />
 
         <View
             android:layout_width="0dp"
@@ -37,6 +45,7 @@
             app:layout_constraintTop_toTopOf="@+id/iv_icon" />
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y4"
@@ -58,10 +67,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:background="@mipmap/icon_arrow_right"
             android:layout_width="@dimen/x5"
             android:layout_height="@dimen/y9"
             android:layout_marginRight="@dimen/x11"
+            android:background="@mipmap/icon_arrow_right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"></View>

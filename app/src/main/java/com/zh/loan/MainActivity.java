@@ -11,6 +11,7 @@ import com.zh.loan.activity.MyBalanceActivity;
 import com.zh.loan.activity.ServiceActivity;
 import com.zh.loan.base.BaseActivity;
 import com.zh.loan.databinding.ActivityMainBinding;
+import com.zh.loan.service.UserService;
 import com.zh.loan.utils.IntentUtils;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
@@ -35,20 +36,26 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     public void initListener() {
 
-        binding.clytInfo.setOnClickListener((v)->{
-            IntentUtils.doIntent(this,InfoActivity.class);
+        binding.clytInfo.setOnClickListener((v) -> {
+            if (UserService.getInstance().isLogin()) {
+                IntentUtils.doIntent(this, InfoActivity.class);
+            }
         });
 
-        binding.clytBalance.setOnClickListener((v)->{
-            IntentUtils.doIntent(this,MyBalanceActivity.class);
+        binding.clytBalance.setOnClickListener((v) -> {
+            if (UserService.getInstance().isLogin()) {
+                IntentUtils.doIntent(this, MyBalanceActivity.class);
+            }
         });
 
-        binding.clytEdu.setOnClickListener((v)->{
-            IntentUtils.doIntent(this,ApplyLimitActivity.class);
+        binding.clytEdu.setOnClickListener((v) -> {
+            if (UserService.getInstance().isLogin()) {
+                IntentUtils.doIntent(this, ApplyLimitActivity.class);
+            }
         });
 
-        binding.clytService.setOnClickListener((v)->{
-            IntentUtils.doIntent(this,ServiceActivity.class);
+        binding.clytService.setOnClickListener((v) -> {
+            IntentUtils.doIntent(this, ServiceActivity.class);
         });
     }
 }

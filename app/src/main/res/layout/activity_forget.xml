@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/x18"
             android:layout_marginTop="@dimen/y113"
-            android:text="新用户注册"
+            android:text="忘记密码"
             android:textColor="#1D1E2C"
             android:textSize="@dimen/x24"
             app:layout_constraintLeft_toLeftOf="parent"

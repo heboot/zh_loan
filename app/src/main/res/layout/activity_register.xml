@@ -41,6 +41,7 @@
             android:hint="输入手机号"
             android:textColor="#1D1E2C"
             android:textSize="@dimen/x16"
+            android:inputType="number"
             app:layout_constraintLeft_toLeftOf="@+id/tv_mobile_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_mobile_title"></EditText>
 
@@ -110,7 +111,7 @@
             android:layout_marginTop="@dimen/y10"
             android:background="@null"
             android:hint="输入密码"
-            android:inputType="number"
+            android:inputType="textPassword"
             android:textColor="#1D1E2C"
             android:textSize="@dimen/x16"
             app:layout_constraintLeft_toLeftOf="@+id/tv_mobile_title"

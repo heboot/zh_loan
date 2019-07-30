@@ -8,6 +8,8 @@ public class MKey {
 
     public static final String TRUENAME = "truename";
 
+    public static final String PHONE = "phone";
+
     public static final String PHONE1 = "phone1";
 
     public static final String PHONE2 = "phone2";
@@ -18,5 +20,9 @@ public class MKey {
 
     public static final String BANK_CARD = "bank_card";
 
+    public static final String TYPE = "type";
 
+    public static final String CODE = "code";
+
+    public static final String PASSWORD = "password";
 }

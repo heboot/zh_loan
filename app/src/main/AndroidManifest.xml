@@ -3,12 +3,15 @@
     package="com.zh.loan">
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:name=".MAPP"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/tnet"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -31,6 +34,10 @@
         <activity android:name=".activity.ApplyLimitActivity"></activity>
 
         <activity android:name=".activity.ServiceActivity"></activity>
+
+        <activity android:name=".activity.RegisterActivity"></activity>
+
+        <activity android:name=".activity.ForgetActivity"></activity>
     </application>
 
 </manifest>
