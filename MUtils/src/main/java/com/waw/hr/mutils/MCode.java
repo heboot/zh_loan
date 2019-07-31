@@ -10,7 +10,7 @@ public class MCode {
 
         public final static int SUCCESS = 200;
 
-        public final static int TOKEN_ERROR = 50008;
+        public final static int TOKEN_ERROR = 501;
     }
 
 

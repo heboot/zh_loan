@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:name=".MAPP"
@@ -40,6 +41,12 @@
         <activity android:name=".activity.ForgetActivity"></activity>
 
         <activity android:name=".activity.CashActivity"></activity>
+
+        <activity android:name=".activity.RepaymentActivity"></activity>
+
+        <activity android:name=".activity.AbountActivity"></activity>
+
+        <activity android:name=".activity.SettingActivity"></activity>
     </application>
 
 </manifest>

@@ -7,6 +7,8 @@ import com.waw.hr.mutils.MCode;
 import com.waw.hr.mutils.NetWorkUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.zh.loan.MAPP;
+import com.zh.loan.activity.LoginActivity;
+import com.zh.loan.utils.IntentUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -39,7 +41,7 @@ public abstract class HttpObserver<T> implements Observer<BaseBean<T>> {
         LogUtil.e(TAG, JSON.toJSONString(baseBean));
         if (baseBean.getCode() != MCode.HTTP_CODE.SUCCESS || baseBean == null) {
             if (baseBean.getCode() == MCode.HTTP_CODE.TOKEN_ERROR) {
-//                IntentUtils.doIntent(MAPP.mapp.getCurrentActivity(), LoginActivity.class);
+                IntentUtils.doIntent(MAPP.mapp.getCurrentActivity(), LoginActivity.class);
             }
             this.disposable.dispose();
             try {

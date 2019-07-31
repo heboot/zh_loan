@@ -146,6 +146,16 @@ public class DialogUtils {
         return qmuiBottomSheet;
     }
 
+    public static QMUIBottomSheet getLogoutBottomSheet(Context context, QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener listener) {
+        QMUIBottomSheet qmuiBottomSheet = new QMUIBottomSheet.BottomListSheetBuilder(context)
+                .addItem("换账号登录")
+                .addItem("退出登录")
+                .addItem("取消")
+                .setOnSheetItemClickListener(listener)
+                .build();
+        return qmuiBottomSheet;
+    }
+
     public static QMUIBottomSheet getNAVBottomSheet(Context context, List<String> text, QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener listener) {
         QMUIBottomSheet.BottomListSheetBuilder qmuiBottomSheet = new QMUIBottomSheet.BottomListSheetBuilder(context);
         for (String s : text) {

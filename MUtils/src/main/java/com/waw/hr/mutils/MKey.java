@@ -26,7 +26,16 @@ public class MKey {
 
     public static final String CODE = "code";
 
+    public static final String MONEY = "money";
+
     public static final String PASSWORD = "password";
 
     public static final String NUM = "num";
+
+    public static final String REPAYMENT = "repayment";
+
+    public static final String RATE = "rate";
+
+
+
 }

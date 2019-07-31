@@ -69,6 +69,7 @@
                     android:background="@null"
                     android:textColor="#666565"
                     android:hint="请输入"
+                    android:inputType="numberDecimal"
                     android:textSize="@dimen/x22"
                     app:layout_constraintLeft_toLeftOf="@+id/tv_limit_tip"
                     app:layout_constraintTop_toBottomOf="@+id/tv_limit_tip" />
@@ -134,7 +135,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/v_line"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5600(利率:0.04%)"
+                    android:text=""
                     android:textColor="#ff666565"
                     android:textSize="@dimen/x15"></TextView>
                 <View
@@ -160,6 +161,7 @@
         </android.support.v7.widget.CardView>
 
         <TextView
+            android:id="@+id/tv_submit"
             android:gravity="center"
             android:text="立即申请"
             android:textColor="#fff"

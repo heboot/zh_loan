@@ -101,7 +101,7 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
             tipDialog.show();
             return;
         }
-        if (!code.equals(binding.etCode.getText().toString().trim())) {
+        if (!StringUtils.isEmpty(code) &&  !code.equals(binding.etCode.getText().toString().trim())) {
             tipDialog = DialogUtils.getFailDialog(this, "验证码不正确", true);
             tipDialog.show();
             return;
