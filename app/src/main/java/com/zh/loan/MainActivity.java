@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.example.http.HttpClient;
+import com.example.http.UploadHelper;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -27,6 +28,7 @@ import com.zh.loan.utils.DialogUtils;
 import com.zh.loan.utils.ImageUtils;
 import com.zh.loan.utils.IntentUtils;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +62,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void onResume() {
         super.onResume();
-        if(UserService.getInstance().isLoginValue()){
+        if (UserService.getInstance().isLoginValue()) {
             myindex();
         }
     }
@@ -90,10 +92,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             IntentUtils.doIntent(this, ServiceActivity.class);
         });
 
-        binding.ivAvatar.setOnClickListener((v)->{
+        binding.ivAvatar.setOnClickListener((v) -> {
             if (UserService.getInstance().isLogin()) {
-                if(chooseAvatarSheet == null){
-                    chooseAvatarSheet  = DialogUtils.getAvatarBottomSheet(MainActivity.this, new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
+                if (chooseAvatarSheet == null) {
+                    chooseAvatarSheet = DialogUtils.getAvatarBottomSheet(MainActivity.this, new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
                         @Override
                         public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
                             if (position == 0) {
@@ -119,7 +121,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         });
 
         binding.vSetting.setOnClickListener((v) -> {
-                IntentUtils.doIntent(this, SettingActivity.class);
+            IntentUtils.doIntent(this, SettingActivity.class);
         });
     }
 
@@ -128,21 +130,40 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-                // 图片、视频、音频选择结果回调
-                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                // 例如 LocalMedia 里面返回三种path
-                // 1.media.getPath(); 为原图path
-                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                ImageUtils.showImage(this, binding.ivAvatar, selectList.get(0).getCompressPath());
+            // 图片、视频、音频选择结果回调
+            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+            // 例如 LocalMedia 里面返回三种path
+            // 1.media.getPath(); 为原图path
+            // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+            // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+            // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+            avatarPath = selectList.get(0).getCompressPath();
+            ImageUtils.showImage(this, binding.ivAvatar, selectList.get(0).getCompressPath());
+            uploadAvatar();
 //                UploadUtils.uploadImage(selectList.get(0).getCompressPath(), UploadUtils.getIDCardPath(), upCompletionHandler);
         }
     }
 
+    private String avatarPath;
+
+    private void uploadAvatar() {
+        HttpClient.Builder.getServer().upload(UploadHelper.getInstance().addParameter("img", new File(avatarPath)).builder()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
+            @Override
+            public void onSuccess(BaseBean<String> baseBean) {
+                tipDialog = DialogUtils.getSuclDialog(MainActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+
+            @Override
+            public void onError(BaseBean<String> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(MainActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
+    }
 
 
-    private void myindex(){
+    private void myindex() {
         HttpClient.Builder.getServer().myindex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
@@ -151,7 +172,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 UserService.getInstance().setSign((Double) baseBean.getData().get("sign"));
                 UserService.getInstance().setStatus((Double) baseBean.getData().get("status"));
                 binding.tvMobile.setText(UserService.getInstance().getPhone());
-                ImageUtils.showAvatar(MainActivity.this,binding.ivAvatar,UserService.getInstance().getHeadImg());
+                ImageUtils.showAvatar(MainActivity.this, binding.ivAvatar, UserService.getInstance().getHeadImg());
             }
 
             @Override

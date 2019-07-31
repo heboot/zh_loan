@@ -64,6 +64,9 @@ public interface HttpClient {
     @POST("api/applyLimit")
     Observable<BaseBean<Object>> applyLimit(@Header("token") String token,@FieldMap Map<String, Object> params);
 
+    @GET("api/allRefund")
+    Observable<BaseBean<Object>> allRefund(@Header("token") String token,@FieldMap Map<String, Object> params);
+
     @GET("api/refundRecord")
     Observable<BaseBean<BillListBean>> refundRecord(@QueryMap Map<String, Object> params);
 

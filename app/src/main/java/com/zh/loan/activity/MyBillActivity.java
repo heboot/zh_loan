@@ -76,18 +76,30 @@ public class MyBillActivity extends BaseActivity<ActivityMyBillBinding> {
         switch (type) {
             case 1:
                 binding.tvType1.setBackgroundColor(0xffFA4169);
-                binding.tvType1.setBackgroundColor(0xffffffff);
-                binding.tvType1.setBackgroundColor(0xffffffff);
+                binding.tvType2.setBackgroundColor(0xffffffff);
+                binding.tvType3.setBackgroundColor(0xffffffff);
+
+                binding.tvType1.setTextColor(0xffffffff);
+                binding.tvType2.setTextColor(0xff000000);
+                binding.tvType3.setTextColor(0xff000000);
                 break;
             case 2:
                 binding.tvType2.setBackgroundColor(0xffFA4169);
                 binding.tvType1.setBackgroundColor(0xffffffff);
                 binding.tvType3.setBackgroundColor(0xffffffff);
+
+                binding.tvType2.setTextColor(0xffffffff);
+                binding.tvType1.setTextColor(0xff000000);
+                binding.tvType3.setTextColor(0xff000000);
                 break;
             case 3:
                 binding.tvType3.setBackgroundColor(0xffFA4169);
                 binding.tvType1.setBackgroundColor(0xffffffff);
                 binding.tvType2.setBackgroundColor(0xffffffff);
+
+                binding.tvType3.setTextColor(0xffffffff);
+                binding.tvType2.setTextColor(0xff000000);
+                binding.tvType1.setTextColor(0xff000000);
                 break;
         }
     }

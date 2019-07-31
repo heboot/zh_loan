@@ -15,6 +15,7 @@ import com.zh.loan.service.UserService;
 import com.zh.loan.utils.DialogUtils;
 import com.zh.loan.utils.IntentUtils;
 import com.zh.loan.utils.SignUtils;
+import com.zh.loan.utils.StringUtils;
 
 import java.util.Map;
 
@@ -48,6 +49,11 @@ public class MyBalanceActivity extends BaseActivity<ActivityBalanceBinding> {
             finish();
         });
         binding.clyt1.setOnClickListener((v)->{
+            if(StringUtils.isEmpty(binding.tvBalance.getText())){
+                tipDialog = DialogUtils.getFailDialog(MyBalanceActivity.this,"暂无可提现余额", true);
+                tipDialog.show();
+                return;
+            }
             IntentUtils.intent2CashActivity(this,binding.tvBalance.getText().toString(),bank_card);
         });
         binding.clyt2.setOnClickListener((v)->{
@@ -60,8 +66,7 @@ public class MyBalanceActivity extends BaseActivity<ActivityBalanceBinding> {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
 
-                binding.tvBalance.setText((String)baseBean.getData().get("money"));
-
+                binding.tvBalance.setText(StringUtils.isEmpty((String)baseBean.getData().get("money"))?"0.0":(String)baseBean.getData().get("money"));
                 bank_card = (String)baseBean.getData().get("bank_card");
 
             }
