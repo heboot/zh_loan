@@ -54,24 +54,24 @@ public class CashActivity extends BaseActivity<ActivityCashBinding> {
             finish();
         });
         binding.tvCash.setOnClickListener((v) -> {
-            if (StringUtils.isEmpty(balance) || Double.parseDouble(balance) <= 0) {
-                tipDialog = DialogUtils.getFailDialog(CashActivity.this, "没有可用余额，不能提现", true);
-                tipDialog.show();
-                return;
-            }
-            if (StringUtils.isEmpty(bankNumber) ) {
-                tipDialog = DialogUtils.getFailDialog(CashActivity.this, "没有可用银行卡，不能提现", true);
-                tipDialog.show();
-                return;
-            }
+//            if (StringUtils.isEmpty(balance) || Double.parseDouble(balance) <= 0) {
+//                tipDialog = DialogUtils.getFailDialog(CashActivity.this, "没有可用余额，不能提现", true);
+//                tipDialog.show();
+//                return;
+//            }
+//            if (StringUtils.isEmpty(bankNumber) ) {
+//                tipDialog = DialogUtils.getFailDialog(CashActivity.this, "没有可用银行卡，不能提现", true);
+//                tipDialog.show();
+//                return;
+//            }
             cash();
         });
     }
 
     private void cash() {
         params = SignUtils.getNormalParams();
-        params.put(MKey.NUM, balance);
-        HttpClient.Builder.getServer().withdrawDeposit(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<BaseBeanEntity>() {
+        params.put(MKey.NUM, StringUtils.isEmpty(balance)?0:balance);
+        HttpClient.Builder.getServer().withdrawDeposit(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<BaseBeanEntity>() {
             @Override
             public void onSuccess(BaseBean<BaseBeanEntity> baseBean) {
                 tipDialog = DialogUtils.getSuclDialog(CashActivity.this, baseBean.getMsg(), true);

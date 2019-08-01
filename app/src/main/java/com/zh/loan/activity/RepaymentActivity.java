@@ -26,6 +26,8 @@ public class RepaymentActivity extends BaseActivity<ActivityRepaymentBinding> {
 
     @Override
     public void initListener() {
-
+        binding.includeToolbar.vBack.setOnClickListener((v) -> {
+            finish();
+        });
     }
 }

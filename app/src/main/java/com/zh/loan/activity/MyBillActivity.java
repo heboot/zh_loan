@@ -1,36 +1,24 @@
 package com.zh.loan.activity;
 
-import android.bluetooth.le.AdvertiseData;
 import android.content.DialogInterface;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.example.http.HttpClient;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
-import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.MStatusBarUtils;
 import com.waw.hr.mutils.base.BaseBean;
-import com.waw.hr.mutils.base.BaseBeanEntity;
 import com.waw.hr.mutils.bean.BillListBean;
 import com.zh.loan.R;
-import com.zh.loan.adapter.BillAdapter;
 import com.zh.loan.base.BaseActivity;
-import com.zh.loan.databinding.ActivityMainBinding;
 import com.zh.loan.databinding.ActivityMyBillBinding;
 import com.zh.loan.http.HttpObserver;
+import com.zh.loan.service.UserService;
 import com.zh.loan.utils.DialogUtils;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
+import com.zh.loan.utils.IntentUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MyBillActivity extends BaseActivity<ActivityMyBillBinding> {
-
-    private BillAdapter billAdapter;
-
-    private int type = 1;
 
 
     @Override
@@ -47,8 +35,6 @@ public class MyBillActivity extends BaseActivity<ActivityMyBillBinding> {
 
     @Override
     public void initData() {
-        billAdapter = new BillAdapter(new ArrayList<>());
-        binding.rvList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         refundRecord();
     }
 
@@ -57,62 +43,42 @@ public class MyBillActivity extends BaseActivity<ActivityMyBillBinding> {
         binding.includeToolbar.vBack.setOnClickListener((v) -> {
             finish();
         });
-        binding.tvType1.setOnClickListener((v) -> {
-            type = 1;
-            setTypeBG();
+        binding.tvRepayment.setOnClickListener((v) -> {
+            allRefund();
         });
-        binding.tvType2.setOnClickListener((v) -> {
-            type = 2;
-            setTypeBG();
-        });
-        binding.tvType3.setOnClickListener((v) -> {
-            type = 3;
-            setTypeBG();
+        binding.tvRepaymentOutdate.setOnClickListener((v) -> {
+            IntentUtils.doIntent(this,RepaymentActivity.class);
         });
     }
 
+    private void allRefund(  ) {
+        HttpClient.Builder.getServer().allRefund(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getSuclDialog(MyBillActivity.this,   baseBean.getMsg(), true);
+                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        IntentUtils.intent2StatusTipActivity(MyBillActivity.this,"审核结果","审核处理中",baseBean.getMsg(),R.mipmap.icon_wating);
+                        finish();
+                    }
+                });
+                tipDialog.show();
+            }
 
-    private void setTypeBG() {
-        switch (type) {
-            case 1:
-                binding.tvType1.setBackgroundColor(0xffFA4169);
-                binding.tvType2.setBackgroundColor(0xffffffff);
-                binding.tvType3.setBackgroundColor(0xffffffff);
-
-                binding.tvType1.setTextColor(0xffffffff);
-                binding.tvType2.setTextColor(0xff000000);
-                binding.tvType3.setTextColor(0xff000000);
-                break;
-            case 2:
-                binding.tvType2.setBackgroundColor(0xffFA4169);
-                binding.tvType1.setBackgroundColor(0xffffffff);
-                binding.tvType3.setBackgroundColor(0xffffffff);
-
-                binding.tvType2.setTextColor(0xffffffff);
-                binding.tvType1.setTextColor(0xff000000);
-                binding.tvType3.setTextColor(0xff000000);
-                break;
-            case 3:
-                binding.tvType3.setBackgroundColor(0xffFA4169);
-                binding.tvType1.setBackgroundColor(0xffffffff);
-                binding.tvType2.setBackgroundColor(0xffffffff);
-
-                binding.tvType3.setTextColor(0xffffffff);
-                binding.tvType2.setTextColor(0xff000000);
-                binding.tvType1.setTextColor(0xff000000);
-                break;
-        }
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(MyBillActivity.this, "系统错误" + baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
     }
 
-    private void refundRecord() {
-        params.put(MKey.TYPE, type);
-        HttpClient.Builder.getServer().refundRecord(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<BillListBean>() {
+    private void refundRecord(  ) {
+        HttpClient.Builder.getServer().refundRecord(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<BillListBean>() {
             @Override
             public void onSuccess(BaseBean<BillListBean> baseBean) {
                 binding.tvBalance.setText(baseBean.getData().getTotal_money()+"");
-                billAdapter.getData().clear();
-                billAdapter.getData().addAll(baseBean.getData().getList() == null ? new ArrayList<>() : baseBean.getData().getList());
-                billAdapter.notifyDataSetChanged();
             }
 
             @Override

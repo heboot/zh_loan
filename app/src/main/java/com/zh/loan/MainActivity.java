@@ -36,6 +36,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
@@ -84,6 +87,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         binding.clytEdu.setOnClickListener((v) -> {
             if (UserService.getInstance().isLogin()) {
+                if (UserService.getInstance().getStatus() == 2) {
+                    IntentUtils.intent2StatusTipActivity(MainActivity.this, "审核结果", "审核处理中", "已提交申请，等待审核处理", R.mipmap.icon_wating);
+                    return;
+                }
                 IntentUtils.doIntent(this, ApplyLimitActivity.class);
             }
         });
@@ -102,6 +109,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                                 PictureSelector.create(MainActivity.this)
                                         .openCamera(PictureMimeType.ofImage())
                                         .enableCrop(true)
+                                        .withAspectRatio(1, 1)
                                         .maxSelectNum(1).compress(true)
                                         .forResult(REQUEST_CAMERA);
                                 chooseAvatarSheet.dismiss();
@@ -109,7 +117,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                                 PictureSelector.create(MainActivity.this)
                                         .openGallery(PictureMimeType.ofImage())
                                         .maxSelectNum(1).enableCrop(true)
-                                        .compress(true)
+                                        .compress(true).withAspectRatio(1, 1)
                                         .forResult(REQUEST_PHOTO);
                                 chooseAvatarSheet.dismiss();
                             }
@@ -138,7 +146,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
             // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
             avatarPath = selectList.get(0).getCompressPath();
-            ImageUtils.showImage(this, binding.ivAvatar, selectList.get(0).getCompressPath());
+
             uploadAvatar();
 //                UploadUtils.uploadImage(selectList.get(0).getCompressPath(), UploadUtils.getIDCardPath(), upCompletionHandler);
         }
@@ -147,11 +155,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private String avatarPath;
 
     private void uploadAvatar() {
-        HttpClient.Builder.getServer().upload(UploadHelper.getInstance().addParameter("img", new File(avatarPath)).builder()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
+
+        File file = new File(avatarPath);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+
+        MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
+
+        HttpClient.Builder.getServer().updateImg(UserService.getInstance().getToken(),body).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
             @Override
             public void onSuccess(BaseBean<String> baseBean) {
                 tipDialog = DialogUtils.getSuclDialog(MainActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
+                ImageUtils.showImage(MainActivity.this, binding.ivAvatar, baseBean.getData());
             }
 
             @Override

@@ -41,95 +41,60 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/x18"
             android:layout_marginTop="@dimen/y40"
-            android:textColor="#000000"
             android:text="0.00"
+            android:textColor="#000000"
             android:textSize="@dimen/x55"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_end_date"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/x18"-->
+        <!--android:layout_marginTop="@dimen/y20"-->
+        <!--android:text="截止日期"-->
+        <!--android:textSize="@dimen/x12"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tv_balance" />-->
+
+        <!--<TextView-->
+        <!--android:textColor="#4D4D4D"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/y5"-->
+        <!--android:text="2019-90-90"-->
+        <!--android:textSize="@dimen/x14"-->
+        <!--app:layout_constraintLeft_toLeftOf="@+id/tv_end_date"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tv_end_date" />-->
+
         <TextView
             android:id="@+id/tv_repayment"
-            android:layout_width="@dimen/x84"
-            android:layout_height="@dimen/y30"
-            android:layout_marginTop="@dimen/y168"
-            android:layout_marginRight="@dimen/x11"
-            android:background="@drawable/bg_repayment_btn"
+            android:layout_width="@dimen/x311"
+            android:layout_height="@dimen/y50"
+            android:layout_marginTop="@dimen/y21"
+            android:background="@drawable/bg_login_btn"
             android:gravity="center"
             android:text="全部还款"
             android:textColor="#fff"
             android:textSize="@dimen/x14"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_end_date"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="@dimen/x18"-->
-            <!--android:layout_marginTop="@dimen/y20"-->
-            <!--android:text="截止日期"-->
-            <!--android:textSize="@dimen/x12"-->
-            <!--app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/tv_balance" />-->
-
-        <!--<TextView-->
-            <!--android:textColor="#4D4D4D"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/y5"-->
-            <!--android:text="2019-90-90"-->
-            <!--android:textSize="@dimen/x14"-->
-            <!--app:layout_constraintLeft_toLeftOf="@+id/tv_end_date"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/tv_end_date" />-->
-
-        <LinearLayout
-            android:id="@+id/llyt_option"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/y38"
-            android:background="#ffffff"
-            android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_bg">
+            app:layout_constraintTop_toBottomOf="@+id/v_bg" />
 
-
-
-            <TextView  android:textColor="#000000"
-                android:id="@+id/tv_type1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="6个月"
-                android:textSize="@dimen/x15" />
-
-            <TextView
-                android:textColor="#000000"
-                android:id="@+id/tv_type2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="1年"
-                android:textSize="@dimen/x15" />
-
-            <TextView  android:textColor="#000000"
-                android:id="@+id/tv_type3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="2年"
-                android:textSize="@dimen/x15" />
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+        <TextView
+            android:id="@+id/tv_repayment_outdate"
+            android:layout_width="@dimen/x311"
+            android:layout_height="@dimen/y50"
+            android:layout_marginTop="@dimen/y21"
+            android:background="@drawable/bg_login_btn_border"
+            android:gravity="center"
+            android:text="延期还款"
+            android:textColor="#FA4169"
+            android:textSize="@dimen/x14"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/llyt_option"></android.support.v7.widget.RecyclerView>
-
+            app:layout_constraintTop_toBottomOf="@+id/tv_repayment" />
     </android.support.constraint.ConstraintLayout>
 </layout>

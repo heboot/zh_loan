@@ -30,7 +30,7 @@ public class UploadHelper {
 
     public UploadHelper addParameter(String key, File o) {
         RequestBody body = null;
-        body = RequestBody.create(MediaType.parse("mutipart/from-data;charset=UTF-8"), o);
+        body = RequestBody.create(MediaType.parse("multipart/form-data;charset=UTF-8"), o);
         params.put(key,body);
         return this;
     }

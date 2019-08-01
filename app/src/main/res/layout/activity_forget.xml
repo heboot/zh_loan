@@ -6,7 +6,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bg_login">
+        android:background="@mipmap/bg_forget">
 
         <TextView
             android:id="@+id/tv_title"
@@ -45,6 +45,16 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_mobile_title"></EditText>
 
         <View
+            android:id="@+id/v_clear_phone"
+            app:layout_constraintRight_toRightOf="@+id/v1"
+            app:layout_constraintTop_toTopOf="@+id/et_mobile"
+            app:layout_constraintBottom_toBottomOf="@+id/et_mobile"
+            android:background="@mipmap/icon_input_clear"
+            android:layout_width="@dimen/x18"
+            android:layout_height="@dimen/y18"></View>
+
+        <View
+            android:id="@+id/v1"
             android:layout_width="0dp"
             android:layout_height="@dimen/y1"
             android:layout_marginLeft="@dimen/x33"
@@ -97,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y67"
-            android:text="输入密码"
+            android:text="输入新密码"
             android:textColor="#ff69707f"
             android:textSize="@dimen/x12"
             app:layout_constraintLeft_toLeftOf="@+id/tv_code_title"
@@ -110,7 +120,7 @@
             android:layout_marginTop="@dimen/y10"
             android:background="@null"
             android:hint="输入密码"
-            android:inputType="number"
+            android:inputType="textPassword"
             android:textColor="#1D1E2C"
             android:textSize="@dimen/x16"
             app:layout_constraintLeft_toLeftOf="@+id/tv_mobile_title"
@@ -149,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y67"
-            android:text="输入密码"
+            android:text="确认新密码"
             android:textColor="#ff69707f"
             android:textSize="@dimen/x12"
             app:layout_constraintLeft_toLeftOf="@+id/tv_pwd_title"
@@ -162,7 +172,7 @@
             android:layout_marginTop="@dimen/y10"
             android:background="@null"
             android:hint="输入密码"
-            android:inputType="number"
+            android:inputType="textPassword"
             android:textColor="#1D1E2C"
             android:textSize="@dimen/x16"
             app:layout_constraintLeft_toLeftOf="@+id/tv_pwd_title"

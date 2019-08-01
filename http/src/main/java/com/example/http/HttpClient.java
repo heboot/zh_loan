@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -17,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 
@@ -40,7 +42,7 @@ public interface HttpClient {
 
     @FormUrlEncoded
     @POST("api/complete")
-    Observable<BaseBean<BaseBeanEntity>> editInfo(@FieldMap Map<String, Object> params);
+    Observable<BaseBean<Map>> editInfo(@Header("token") String token,@FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("api/register")
@@ -53,7 +55,7 @@ public interface HttpClient {
 
     @FormUrlEncoded
     @POST("api/pwdfind")
-    Observable<BaseBean<Object>> pwdfind(@FieldMap Map<String, Object> params);
+    Observable<BaseBean<List>> pwdfind(@FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded
@@ -65,10 +67,10 @@ public interface HttpClient {
     Observable<BaseBean<Object>> applyLimit(@Header("token") String token,@FieldMap Map<String, Object> params);
 
     @GET("api/allRefund")
-    Observable<BaseBean<Object>> allRefund(@Header("token") String token,@FieldMap Map<String, Object> params);
+    Observable<BaseBean<Object>> allRefund(@Header("token") String token,@QueryMap Map<String, Object> params);
 
     @GET("api/refundRecord")
-    Observable<BaseBean<BillListBean>> refundRecord(@QueryMap Map<String, Object> params);
+    Observable<BaseBean<BillListBean>> refundRecord(@Header("token") String token,@QueryMap Map<String, Object> params);
 
     @GET("api/myAccount")
     Observable<BaseBean<Map>> myAccount(@Header("token") String token);
@@ -79,14 +81,20 @@ public interface HttpClient {
     @GET("api/myindex")
     Observable<BaseBean<Map>> myindex(@Header("token") String token);
 
+    @FormUrlEncoded
     @POST("api/withdrawDeposit")
-    Observable<BaseBean<BaseBeanEntity>> withdrawDeposit(@FieldMap Map<String, Object> params);
+    Observable<BaseBean<BaseBeanEntity>> withdrawDeposit(@Header("token") String token,@FieldMap Map<String, Object> params);
 
     @GET("api/system")
     Observable<BaseBean<Map>> system();
 
+
     @Multipart
     @POST("api/upload")
-    Observable<BaseBean<String>> upload(@PartMap Map<String, RequestBody> params);
+    Observable<BaseBean<String>> upload(@Header("token") String token,@Part MultipartBody.Part img);
+
+    @Multipart
+    @POST("api/updateImg")
+    Observable<BaseBean<String>> updateImg(@Header("token") String token,@Part MultipartBody.Part img);
 
 }

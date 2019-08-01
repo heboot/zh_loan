@@ -30,12 +30,17 @@ public class MKey {
 
     public static final String PASSWORD = "password";
 
+    public static final String AFFPASSWORD = "affpassword";
+
+
     public static final String NUM = "num";
 
     public static final String REPAYMENT = "repayment";
 
     public static final String RATE = "rate";
 
+    public static final String TITLE = "title";
 
-
+    public static final String TIP = "tip";
+    public static final String TIP2 = "tip2";
 }

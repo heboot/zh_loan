@@ -82,6 +82,12 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
         binding.tvLogin.setOnClickListener((v) -> {
             register();
         });
+        binding.vClearPhone.setOnClickListener((v) -> {
+            binding.etMobile.setText("");
+        });
+        binding.vClearPwd.setOnClickListener((v) -> {
+            binding.etPwd.setText("");
+        });
     }
 
 
@@ -101,20 +107,20 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
             tipDialog.show();
             return;
         }
-        if (!StringUtils.isEmpty(code) &&  !code.equals(binding.etCode.getText().toString().trim())) {
+        if (!StringUtils.isEmpty(code) && !code.equals(binding.etCode.getText().toString().trim())) {
             tipDialog = DialogUtils.getFailDialog(this, "验证码不正确", true);
             tipDialog.show();
             return;
         }
 
         params.put(MKey.PHONE, binding.etMobile.getText());
-        params.put(MKey.CODE, binding.etCode.getText());
+        params.put(MKey.CODE, StringUtils.isEmpty(binding.etCode.getText())?"":binding.etCode.getText());
         params.put(MKey.PASSWORD, binding.etPwd.getText());
         HttpClient.Builder.getServer().register(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
             @Override
             public void onSuccess(BaseBean<String> baseBean) {
                 UserService.getInstance().setToken(baseBean.getData());
-                tipDialog = DialogUtils.getSuclDialog(RegisterActivity.this,baseBean.getMsg(),true);
+                tipDialog = DialogUtils.getSuclDialog(RegisterActivity.this, baseBean.getMsg(), true);
                 tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {

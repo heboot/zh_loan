@@ -220,18 +220,19 @@
 
 
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/iv_idcard_face"
                 android:layout_width="@dimen/x110"
                 android:layout_height="@dimen/y80"
                 android:layout_marginLeft="@dimen/x35"
-                android:background="@mipmap/id_card_face" />
+                android:src="@mipmap/id_card_face" />
 
-            <ImageView
+            <ImageView   android:scaleType="fitXY"
                 android:id="@+id/iv_idcard_reverse"
                 android:layout_width="@dimen/x110"
                 android:layout_height="@dimen/y80"
                 android:layout_marginLeft="@dimen/x9"
-                android:background="@mipmap/id_card_reverse" />
+                android:src="@mipmap/id_card_reverse" />
 
 
         </LinearLayout>

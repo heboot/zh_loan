@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 
 import com.example.http.HttpClient;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.MStatusBarUtils;
 import com.waw.hr.mutils.base.BaseBean;
@@ -18,6 +19,8 @@ import com.zh.loan.utils.ObserableUtils;
 import com.zh.loan.utils.SignUtils;
 import com.zh.loan.utils.StringUtils;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,6 +33,7 @@ public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
     private Observer countDownObserver;
 
     private Observable observable;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_forget;
@@ -80,6 +84,9 @@ public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
         binding.tvLogin.setOnClickListener((v) -> {
             register();
         });
+        binding.vClearPhone.setOnClickListener((v) -> {
+            binding.etMobile.setText("");
+        });
     }
 
 
@@ -106,34 +113,41 @@ public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
             return;
         }
 
-        if(!binding.etPwd.getText().equals(binding.etConfirmPwd.getText())){
+
+        if (!binding.etPwd.getText().toString().equals(binding.etConfirmPwd.getText().toString())) {
+            LogUtil.e(TAG,binding.etPwd.getText() + ">>>>" + binding.etConfirmPwd.getText() + "????");
             tipDialog = DialogUtils.getFailDialog(this, "两次密码不一致", true);
             tipDialog.show();
             return;
         }
 
-        if (!code.equals(binding.etCode.getText().toString().trim())) {
+        if (!StringUtils.isEmpty(code) && !code.equals(binding.etCode.getText().toString().trim())) {
             tipDialog = DialogUtils.getFailDialog(this, "验证码不正确", true);
             tipDialog.show();
             return;
         }
 
         params.put(MKey.PHONE, binding.etMobile.getText());
-
-        HttpClient.Builder.getServer().pwdfind(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        params.put(MKey.CODE, StringUtils.isEmpty(binding.etCode.getText())?"":binding.etCode.getText());
+        params.put(MKey.PASSWORD, binding.etPwd.getText());
+        params.put(MKey.AFFPASSWORD, binding.etConfirmPwd.getText());
+        HttpClient.Builder.getServer().pwdfind(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<List>() {
             @Override
-            public void onSuccess(BaseBean<Object> baseBean) {
-                tipDialog = DialogUtils.getSuclDialog(ForgetActivity.this,baseBean.getMsg(),true);
+            public void onSuccess(BaseBean<List> baseBean) {
+                tipDialog = DialogUtils.getSuclDialog(ForgetActivity.this, baseBean.getMsg(), true);
                 tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
                         finish();
                     }
                 });
+                tipDialog.show();
             }
 
             @Override
-            public void onError(BaseBean<Object> baseBean) {
+            public void onError(BaseBean<List> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(ForgetActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
             }
         });
 

@@ -17,6 +17,8 @@ import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.MStatusBarUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.base.BaseBeanEntity;
+import com.zh.loan.BuildConfig;
+import com.zh.loan.MainActivity;
 import com.zh.loan.R;
 import com.zh.loan.base.BaseActivity;
 import com.zh.loan.databinding.ActivityInfoBinding;
@@ -26,10 +28,15 @@ import com.zh.loan.utils.DialogUtils;
 import com.zh.loan.utils.ImageUtils;
 import com.zh.loan.utils.StringUtils;
 
+import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
 
@@ -51,11 +58,21 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
         MStatusBarUtils.setActivityLightMode(this);
         QMUIStatusBarHelper.translucent(this);
         binding.includeToolbar.tvTitle.setText("信息完善");
+        if(UserService.getInstance().getSign() == 1){
+            binding.tvSave.setVisibility(View.GONE);
+            binding.etName.setEnabled(false);
+            binding.etMobile.setEnabled(false);
+            binding.etRelevanceMobile.setEnabled(false);
+            binding.etBankNum.setEnabled(false);
+            binding.etAddress.setEnabled(false);
+            binding.ivIdcardReverse.setEnabled(false);
+            binding.ivIdcardFace.setEnabled(false);
+        }
     }
 
     @Override
     public void initData() {
-
+        editInfo(true);
     }
 
     @Override
@@ -65,18 +82,19 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
         });
         binding.tvSave.setOnClickListener((v) -> {
             if (checkData()) {
-                editInfo();
+                editInfo(false);
             }
         });
-        binding.ivIdcardFace.setOnClickListener((v)->{
+        binding.ivIdcardFace.setOnClickListener((v) -> {
             isFace = true;
-            if(chooseSheet == null){
+            if (chooseSheet == null) {
                 initSheel();
             }
             chooseSheet.show();
         });
-        binding.ivIdcardReverse.setOnClickListener((v)->{
-            if(chooseSheet == null){
+        binding.ivIdcardReverse.setOnClickListener((v) -> {
+            isFace = false;
+            if (chooseSheet == null) {
                 initSheel();
             }
             chooseSheet.show();
@@ -96,7 +114,7 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
                 // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                 // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                 ImageUtils.showImage(this, binding.ivIdcardFace, selectList.get(0).getCompressPath());
-//                UploadUtils.uploadImage(selectList.get(0).getCompressPath(), UploadUtils.getIDCardPath(), upCompletionHandler);
+                uploadImage(true, selectList.get(0).getCompressPath());
             } else {
                 // 图片、视频、音频选择结果回调
                 List<LocalMedia> selectList2 = PictureSelector.obtainMultipleResult(data);
@@ -107,13 +125,44 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
                 // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                 // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                 ImageUtils.showImage(this, binding.ivIdcardReverse, selectList2.get(0).getCompressPath());
-//                UploadUtils.uploadImage(selectList2.get(0).getCompressPath(), UploadUtils.getIDCardPath(), upCompletionHandler);
+                uploadImage(false, selectList2.get(0).getCompressPath());
             }
 //
         }
     }
 
-    private void initSheel(){
+
+    private void uploadImage(boolean isFace, String path) {
+
+        File file = new File(path);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+
+        MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
+
+        HttpClient.Builder.getServer().upload(UserService.getInstance().getToken(),body).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
+            @Override
+            public void onSuccess(BaseBean<String> baseBean) {
+                tipDialog = DialogUtils.getSuclDialog(InfoActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+                if (isFace) {
+                    ImageUtils.showImage(InfoActivity.this, binding.ivIdcardFace, com.example.http.BuildConfig.HTTP_SERVER + baseBean.getData());
+                    faceUrl = baseBean.getData();
+                } else {
+                    ImageUtils.showImage(InfoActivity.this, binding.ivIdcardReverse, com.example.http.BuildConfig.HTTP_SERVER + baseBean.getData());
+                    reverseUrl = baseBean.getData();
+                }
+            }
+
+            @Override
+            public void onError(BaseBean<String> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(InfoActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
+    }
+
+    private void initSheel() {
         chooseSheet = DialogUtils.getAvatarBottomSheet(this, new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
             @Override
             public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
@@ -136,30 +185,52 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
         });
     }
 
-    private void editInfo(){
+    //     "truename": "jrjrjje",
+//             "phone1": "4646664",
+//             "phone2": "3166431",
+//             "city": "hdjdjjd",
+//             "bank_card": "*********",
+//             "id_card1": "https:\/\/47.75.122.66\/upload\/20190801\/d4fe1a81f35448e9b53fc8cb07a51898.jpg",
+//             "id_card2": "https:\/\/47.75.122.66\/upload\/20190801\/0bf18ca580e82e5c91d2e26664a9a071.jpg"
+//}
+    private void editInfo(boolean before) {
 
-        params.put(MKey.TRUENAME,binding.etName.getText());
-        params.put(MKey.PHONE1,binding.etMobile.getText());
-        params.put(MKey.PHONE2,binding.etRelevanceMobile.getText());
-        params.put(MKey.CITY,binding.etAddress.getText());
-        params.put(MKey.BANK_CARD,binding.etBankNum.getText());
-        params.put(MKey.ID_CARD,faceUrl + "," + reverseUrl);
-
-        HttpClient.Builder.getServer().editInfo(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<BaseBeanEntity>() {
+        if (!before) {
+            params.put(MKey.TRUENAME, binding.etName.getText());
+            params.put(MKey.PHONE1, binding.etMobile.getText());
+            params.put(MKey.PHONE2, binding.etRelevanceMobile.getText());
+            params.put(MKey.CITY, binding.etAddress.getText());
+            params.put(MKey.BANK_CARD, binding.etBankNum.getText());
+            params.put(MKey.ID_CARD, faceUrl + "," + reverseUrl);
+        } else {
+            params.clear();
+        }
+        HttpClient.Builder.getServer().editInfo(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
-            public void onSuccess(BaseBean<BaseBeanEntity> baseBean) {
-                tipDialog = DialogUtils.getSuclDialog(InfoActivity.this, baseBean.getMsg(), true);
-                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        finish();
-                    }
-                });
-                tipDialog.show();
+            public void onSuccess(BaseBean<Map> baseBean) {
+                if (before) {
+                    binding.etName.setText((String) baseBean.getData().get("truename"));
+                    binding.etMobile.setText((String) baseBean.getData().get("phone1"));
+                    binding.etRelevanceMobile.setText((String) baseBean.getData().get("phone2"));
+                    binding.etAddress.setText((String) baseBean.getData().get("city"));
+                    binding.etBankNum.setText((String) baseBean.getData().get("bank_card"));
+                    ImageUtils.showImage(InfoActivity.this, binding.ivIdcardReverse, (String)  baseBean.getData().get("id_card1"));
+                    ImageUtils.showImage(InfoActivity.this, binding.ivIdcardFace, (String) baseBean.getData().get("id_card2"));
+
+                } else {
+                    tipDialog = DialogUtils.getSuclDialog(InfoActivity.this, baseBean.getMsg(), true);
+                    tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            finish();
+                        }
+                    });
+                    tipDialog.show();
+                }
             }
 
             @Override
-            public void onError(BaseBean<BaseBeanEntity> baseBean) {
+            public void onError(BaseBean<Map> baseBean) {
                 tipDialog = DialogUtils.getFailDialog(InfoActivity.this, "系统错误" + baseBean.getMsg(), true);
                 tipDialog.show();
             }
