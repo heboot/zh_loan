@@ -43,6 +43,7 @@ public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
     public void initUI() {
         MStatusBarUtils.setActivityLightMode(this);
         QMUIStatusBarHelper.translucent(this);
+        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
     }
 
     @Override
@@ -113,9 +114,8 @@ public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
             return;
         }
 
-
         if (!binding.etPwd.getText().toString().equals(binding.etConfirmPwd.getText().toString())) {
-            LogUtil.e(TAG,binding.etPwd.getText() + ">>>>" + binding.etConfirmPwd.getText() + "????");
+            LogUtil.e(TAG, binding.etPwd.getText() + ">>>>" + binding.etConfirmPwd.getText() + "????");
             tipDialog = DialogUtils.getFailDialog(this, "两次密码不一致", true);
             tipDialog.show();
             return;
@@ -127,13 +127,16 @@ public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
             return;
         }
 
+        loadingDialog.show();
+
         params.put(MKey.PHONE, binding.etMobile.getText());
-        params.put(MKey.CODE, StringUtils.isEmpty(binding.etCode.getText())?"":binding.etCode.getText());
+        params.put(MKey.CODE, StringUtils.isEmpty(binding.etCode.getText()) ? "" : binding.etCode.getText());
         params.put(MKey.PASSWORD, binding.etPwd.getText());
         params.put(MKey.AFFPASSWORD, binding.etConfirmPwd.getText());
         HttpClient.Builder.getServer().pwdfind(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<List>() {
             @Override
             public void onSuccess(BaseBean<List> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getSuclDialog(ForgetActivity.this, baseBean.getMsg(), true);
                 tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
@@ -146,6 +149,7 @@ public class ForgetActivity extends BaseActivity<ActivityForgetBinding> {
 
             @Override
             public void onError(BaseBean<List> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getFailDialog(ForgetActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

@@ -12,6 +12,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -81,9 +82,9 @@ public interface HttpClient {
     @GET("api/myindex")
     Observable<BaseBean<Map>> myindex(@Header("token") String token);
 
-    @FormUrlEncoded
+//    @FormUrlEncoded
     @POST("api/withdrawDeposit")
-    Observable<BaseBean<BaseBeanEntity>> withdrawDeposit(@Header("token") String token,@FieldMap Map<String, Object> params);
+    Observable<BaseBean<Object>> withdrawDeposit(@Header("token") String token,@Body Map<String, Object> params);
 
     @GET("api/system")
     Observable<BaseBean<Map>> system();

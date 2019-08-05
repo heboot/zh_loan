@@ -17,6 +17,7 @@ import com.zh.loan.utils.DialogUtils;
 import com.zh.loan.utils.SignUtils;
 import com.zh.loan.utils.StringUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,6 +39,7 @@ public class CashActivity extends BaseActivity<ActivityCashBinding> {
         MStatusBarUtils.setActivityLightMode(this);
         QMUIStatusBarHelper.translucent(this);
         binding.includeToolbar.tvTitle.setText("我要提现");
+        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
     }
 
     @Override
@@ -69,11 +71,13 @@ public class CashActivity extends BaseActivity<ActivityCashBinding> {
     }
 
     private void cash() {
-        params = SignUtils.getNormalParams();
-        params.put(MKey.NUM, StringUtils.isEmpty(balance)?0:balance);
-        HttpClient.Builder.getServer().withdrawDeposit(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<BaseBeanEntity>() {
+        params = new HashMap<>();
+        params.put(MKey.NUM, StringUtils.isEmpty(balance)?1:balance);
+        loadingDialog.show();
+        HttpClient.Builder.getServer().withdrawDeposit(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
-            public void onSuccess(BaseBean<BaseBeanEntity> baseBean) {
+            public void onSuccess(BaseBean<Object> baseBean) {
+               dismissLoadingDialog();
                 tipDialog = DialogUtils.getSuclDialog(CashActivity.this, baseBean.getMsg(), true);
                 tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
@@ -85,7 +89,8 @@ public class CashActivity extends BaseActivity<ActivityCashBinding> {
             }
 
             @Override
-            public void onError(BaseBean<BaseBeanEntity> baseBean) {
+            public void onError(BaseBean<Object> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getFailDialog(CashActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

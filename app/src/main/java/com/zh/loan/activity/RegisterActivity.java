@@ -40,6 +40,7 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
     public void initUI() {
         MStatusBarUtils.setActivityLightMode(this);
         QMUIStatusBarHelper.translucent(this);
+        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
     }
 
     @Override
@@ -113,12 +114,15 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
             return;
         }
 
+        loadingDialog.show();
+
         params.put(MKey.PHONE, binding.etMobile.getText());
-        params.put(MKey.CODE, StringUtils.isEmpty(binding.etCode.getText())?"":binding.etCode.getText());
+        params.put(MKey.CODE, StringUtils.isEmpty(binding.etCode.getText()) ? "" : binding.etCode.getText());
         params.put(MKey.PASSWORD, binding.etPwd.getText());
         HttpClient.Builder.getServer().register(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
             @Override
             public void onSuccess(BaseBean<String> baseBean) {
+                dismissLoadingDialog();
                 UserService.getInstance().setToken(baseBean.getData());
                 tipDialog = DialogUtils.getSuclDialog(RegisterActivity.this, baseBean.getMsg(), true);
                 tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -132,6 +136,7 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
 
             @Override
             public void onError(BaseBean<String> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getFailDialog(RegisterActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

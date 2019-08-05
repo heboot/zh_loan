@@ -58,7 +58,8 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
         MStatusBarUtils.setActivityLightMode(this);
         QMUIStatusBarHelper.translucent(this);
         binding.includeToolbar.tvTitle.setText("信息完善");
-        if(UserService.getInstance().getSign() == 1){
+        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
+        if (UserService.getInstance().getSign() == 1) {
             binding.tvSave.setVisibility(View.GONE);
             binding.etName.setEnabled(false);
             binding.etMobile.setEnabled(false);
@@ -133,14 +134,14 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
 
 
     private void uploadImage(boolean isFace, String path) {
-
+        loadingDialog.show();
         File file = new File(path);
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
 
         MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
 
-        HttpClient.Builder.getServer().upload(UserService.getInstance().getToken(),body).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
+        HttpClient.Builder.getServer().upload(UserService.getInstance().getToken(), body).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
             @Override
             public void onSuccess(BaseBean<String> baseBean) {
                 tipDialog = DialogUtils.getSuclDialog(InfoActivity.this, baseBean.getMsg(), true);
@@ -152,10 +153,12 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
                     ImageUtils.showImage(InfoActivity.this, binding.ivIdcardReverse, com.example.http.BuildConfig.HTTP_SERVER + baseBean.getData());
                     reverseUrl = baseBean.getData();
                 }
+                dismissLoadingDialog();
             }
 
             @Override
             public void onError(BaseBean<String> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getFailDialog(InfoActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }
@@ -194,7 +197,7 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
 //             "id_card2": "https:\/\/47.75.122.66\/upload\/20190801\/0bf18ca580e82e5c91d2e26664a9a071.jpg"
 //}
     private void editInfo(boolean before) {
-
+        loadingDialog.show();
         if (!before) {
             params.put(MKey.TRUENAME, binding.etName.getText());
             params.put(MKey.PHONE1, binding.etMobile.getText());
@@ -208,13 +211,16 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
         HttpClient.Builder.getServer().editInfo(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
+                if (loadingDialog != null && loadingDialog.isShowing()) {
+                    loadingDialog.dismiss();
+                }
                 if (before) {
                     binding.etName.setText((String) baseBean.getData().get("truename"));
                     binding.etMobile.setText((String) baseBean.getData().get("phone1"));
                     binding.etRelevanceMobile.setText((String) baseBean.getData().get("phone2"));
                     binding.etAddress.setText((String) baseBean.getData().get("city"));
                     binding.etBankNum.setText((String) baseBean.getData().get("bank_card"));
-                    ImageUtils.showImage(InfoActivity.this, binding.ivIdcardReverse, (String)  baseBean.getData().get("id_card1"));
+                    ImageUtils.showImage(InfoActivity.this, binding.ivIdcardReverse, (String) baseBean.getData().get("id_card1"));
                     ImageUtils.showImage(InfoActivity.this, binding.ivIdcardFace, (String) baseBean.getData().get("id_card2"));
 
                 } else {
@@ -231,7 +237,10 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
 
             @Override
             public void onError(BaseBean<Map> baseBean) {
-                tipDialog = DialogUtils.getFailDialog(InfoActivity.this, "系统错误" + baseBean.getMsg(), true);
+                if (loadingDialog != null && loadingDialog.isShowing()) {
+                    loadingDialog.dismiss();
+                }
+                tipDialog = DialogUtils.getFailDialog(InfoActivity.this,   baseBean.getMsg(), true);
                 tipDialog.show();
             }
         });

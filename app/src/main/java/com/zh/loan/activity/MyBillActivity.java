@@ -68,7 +68,7 @@ public class MyBillActivity extends BaseActivity<ActivityMyBillBinding> {
 
             @Override
             public void onError(BaseBean<Object> baseBean) {
-                tipDialog = DialogUtils.getFailDialog(MyBillActivity.this, "系统错误" + baseBean.getMsg(), true);
+                tipDialog = DialogUtils.getFailDialog(MyBillActivity.this,  baseBean.getMsg(), true);
                 tipDialog.show();
             }
         });
@@ -83,7 +83,7 @@ public class MyBillActivity extends BaseActivity<ActivityMyBillBinding> {
 
             @Override
             public void onError(BaseBean<BillListBean> baseBean) {
-                tipDialog = DialogUtils.getFailDialog(MyBillActivity.this, "系统错误" + baseBean.getMsg(), true);
+                tipDialog = DialogUtils.getFailDialog(MyBillActivity.this,  baseBean.getMsg(), true);
                 tipDialog.show();
             }
         });

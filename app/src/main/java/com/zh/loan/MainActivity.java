@@ -55,6 +55,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public void initUI() {
         MStatusBarUtils.setActivityLightMode(this);
         QMUIStatusBarHelper.translucent(this);
+        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
     }
 
     @Override
@@ -156,6 +157,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private void uploadAvatar() {
 
+        loadingDialog.show();
+
         File file = new File(avatarPath);
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
@@ -165,6 +168,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         HttpClient.Builder.getServer().updateImg(UserService.getInstance().getToken(),body).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
             @Override
             public void onSuccess(BaseBean<String> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getSuclDialog(MainActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
                 ImageUtils.showImage(MainActivity.this, binding.ivAvatar, baseBean.getData());
@@ -172,6 +176,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
             @Override
             public void onError(BaseBean<String> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getFailDialog(MainActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

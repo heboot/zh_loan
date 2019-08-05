@@ -55,7 +55,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
         MStatusBarUtils.setActivityLightMode(this);
         QMUIStatusBarHelper.translucent(this);
         binding.includeToolbar.tvTitle.setText("申请额度");
-
+        loadingDialog = DialogUtils.getLoadingDialog(this,"",false);
     }
 
     @Override
@@ -130,9 +130,11 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
         params.put(MKey.MONEY,binding.etMoney.getText());
         params.put(MKey.RATE,rates.get(type)+"");
         params.put(MKey.REPAYMENT,repaymentMoney);
+        loadingDialog.show();
         HttpClient.Builder.getServer().applyLimit(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getSuclDialog(ApplyLimitActivity.this, baseBean.getMsg(), true);
                 tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
@@ -146,6 +148,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
 
             @Override
             public void onError(BaseBean<Object> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getFailDialog(ApplyLimitActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
     @Override
     public void initData() {
-
+        loadingDialog = DialogUtils.getLoadingDialog(this,"",false);
     }
 
     @Override
@@ -68,15 +68,19 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
         params.put(MKey.PHONE, binding.etMobile.getText());
         params.put(MKey.PASSWORD, binding.etPwd.getText());
+
+        loadingDialog.show();
         HttpClient.Builder.getServer().login(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
             @Override
             public void onSuccess(BaseBean<String> baseBean) {
+                dismissLoadingDialog();
                 UserService.getInstance().setToken(baseBean.getData());
                 finish();
             }
 
             @Override
             public void onError(BaseBean<String> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getFailDialog(LoginActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

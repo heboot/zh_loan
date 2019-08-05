@@ -71,6 +71,13 @@ public  abstract class BaseActivity<T extends ViewDataBinding> extends FragmentA
         super.onDestroy();
     }
 
+
+    protected void dismissLoadingDialog() {
+        if (loadingDialog != null && loadingDialog.isShowing()) {
+            loadingDialog.dismiss();
+        }
+    }
+
     private void rxBusObservers() {
         rxObservable = RxBus.getInstance().toObserverable();
         rxObservable.subscribe(new Observer<Object>() {
