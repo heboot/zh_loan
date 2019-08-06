@@ -12,6 +12,9 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.MStatusBarUtils;
 import com.waw.hr.mutils.base.BaseBean;
@@ -45,6 +48,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private QMUIBottomSheet chooseAvatarSheet;
 
     private final int REQUEST_CAMERA = 40001, REQUEST_PHOTO = 40002;
+
+    private QMUIDialog qmuiDialog;
 
     @Override
     protected int getLayoutId() {
@@ -90,6 +95,20 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             if (UserService.getInstance().isLogin()) {
                 if (UserService.getInstance().getStatus() == 2) {
                     IntentUtils.intent2StatusTipActivity(MainActivity.this, "审核结果", "审核处理中", "已提交申请，等待审核处理", R.mipmap.icon_wating);
+                    return;
+                } else if (UserService.getInstance().getStatus() == 3) {
+                    if (qmuiDialog == null) {
+                        qmuiDialog = new QMUIDialog.MessageDialogBuilder(this)
+                                .setMessage("当前账户状态不能再次申请额度，请检查是否有额度未使用和账单未还清").
+                                addAction("确定", new QMUIDialogAction.ActionListener() {
+                                    @Override
+                                    public void onClick(QMUIDialog dialog, int index) {
+                                        qmuiDialog.dismiss();
+                                    }
+                                })
+                                .create();
+                    }
+                    qmuiDialog.show();
                     return;
                 }
                 IntentUtils.doIntent(this, ApplyLimitActivity.class);
@@ -165,7 +184,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
 
-        HttpClient.Builder.getServer().updateImg(UserService.getInstance().getToken(),body).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
+        HttpClient.Builder.getServer().updateImg(UserService.getInstance().getToken(), body).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
             @Override
             public void onSuccess(BaseBean<String> baseBean) {
                 dismissLoadingDialog();

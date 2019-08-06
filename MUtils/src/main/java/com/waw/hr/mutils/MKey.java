@@ -40,7 +40,7 @@ public class MKey {
     public static final String RATE = "rate";
 
     public static final String TITLE = "title";
-
+    public static final String DAY = "day";
     public static final String TIP = "tip";
     public static final String TIP2 = "tip2";
 }

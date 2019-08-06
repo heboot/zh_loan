@@ -38,7 +38,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
 
     private int type = 0;
 
-    private List<String> titles;
+    private List<String> titles,displayTitles;
 
     private List<Double> rates;
 
@@ -68,7 +68,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
         binding.includeToolbar.vBack.setOnClickListener((v) -> {
             finish();
         });
-        binding.tvDeadline.setOnClickListener((v)->{
+        binding.vDeadline.setOnClickListener((v)->{
             chooseTimeDialog.show();
         });
         binding.etMoney.addTextChangedListener(new TextWatcher() {
@@ -93,6 +93,12 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
                 tipDialog.show();
                 return ;
             }
+
+            if(Integer.parseInt(binding.etMoney.getText().toString()) < 1000 || Integer.parseInt(binding.etMoney.getText().toString()) >8000){
+                tipDialog = DialogUtils.getFailDialog(ApplyLimitActivity.this, "申请额度范围1000~8000元", true);
+                tipDialog.show();
+                return ;
+            }
             applyLimit();
         });
     }
@@ -107,14 +113,14 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
 
 
     private void initDialog() {
-        CharSequence[] items = new CharSequence[titles.size()];
-        titles.toArray(items);
+        CharSequence[] items = new CharSequence[displayTitles.size()];
+        displayTitles.toArray(items);
         chooseTimeDialog = new QMUIDialog.CheckableDialogBuilder(this)
                 .addItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         type = i ;
-                        binding.tvDeadline.setText(items[i]);
+                        binding.tvDeadline.setText(items[i] );
                         if(!StringUtils.isEmpty(binding.etMoney.getText())){
                             binding.tvRepaymentTip.setText(calculate(binding.etMoney.getText().toString()));
                         }
@@ -126,7 +132,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
 
     private void applyLimit(){
         params = SignUtils.getNormalParams();
-        params.put(MKey.TYPE,type);
+        params.put(MKey.TYPE,titles.get(type));
         params.put(MKey.MONEY,binding.etMoney.getText());
         params.put(MKey.RATE,rates.get(type)+"");
         params.put(MKey.REPAYMENT,repaymentMoney);
@@ -162,11 +168,13 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
 
                 titles = new ArrayList<>();
                 rates = new ArrayList<>();
+                displayTitles = new ArrayList<>();
                 for(RateModel  rateModel : baseBean.getData()){
                     titles.add(rateModel.getDuration());
+                    displayTitles.add(rateModel.getDuration() + "天");
                     rates.add(Double.parseDouble(rateModel.getRate()));
                 }
-                binding.tvDeadline.setText(titles.get(0));
+                binding.tvDeadline.setText(displayTitles.get(0));
                 initDialog();
             }
 

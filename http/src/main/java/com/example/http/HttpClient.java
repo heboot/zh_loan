@@ -67,11 +67,17 @@ public interface HttpClient {
     @POST("api/applyLimit")
     Observable<BaseBean<Object>> applyLimit(@Header("token") String token,@FieldMap Map<String, Object> params);
 
+
+    @FormUrlEncoded
+    @POST("api/delayRefund")
+    Observable<BaseBean<Object>> delayRefund(@Header("token") String token,@FieldMap Map<String, Object> params);
+
+
     @GET("api/allRefund")
     Observable<BaseBean<Object>> allRefund(@Header("token") String token,@QueryMap Map<String, Object> params);
 
     @GET("api/refundRecord")
-    Observable<BaseBean<BillListBean>> refundRecord(@Header("token") String token,@QueryMap Map<String, Object> params);
+    Observable<BaseBean<Map>> refundRecord(@Header("token") String token,@QueryMap Map<String, Object> params);
 
     @GET("api/myAccount")
     Observable<BaseBean<Map>> myAccount(@Header("token") String token);
@@ -82,9 +88,9 @@ public interface HttpClient {
     @GET("api/myindex")
     Observable<BaseBean<Map>> myindex(@Header("token") String token);
 
-//    @FormUrlEncoded
+    @FormUrlEncoded
     @POST("api/withdrawDeposit")
-    Observable<BaseBean<Object>> withdrawDeposit(@Header("token") String token,@Body Map<String, Object> params);
+    Observable<BaseBean<Object>> withdrawDeposit(@Header("token") String token,@FieldMap Map<String, Object> params);
 
     @GET("api/system")
     Observable<BaseBean<Map>> system();

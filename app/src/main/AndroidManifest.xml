@@ -49,6 +49,8 @@
         <activity android:name=".activity.SettingActivity"></activity>
 
         <activity android:name=".activity.StatusTipActivity"></activity>
+
+        <activity android:name=".activity.DelayRefundActivity"></activity>
     </application>
 
 </manifest>

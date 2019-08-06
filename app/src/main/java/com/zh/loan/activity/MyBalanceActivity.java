@@ -40,6 +40,11 @@ public class MyBalanceActivity extends BaseActivity<ActivityBalanceBinding> {
 
     @Override
     public void initData() {
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         balance();
     }
 

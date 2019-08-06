@@ -1,6 +1,7 @@
 package com.zh.loan.activity;
 
 import android.content.DialogInterface;
+import android.view.View;
 
 import com.example.http.HttpClient;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
@@ -14,6 +15,9 @@ import com.zh.loan.http.HttpObserver;
 import com.zh.loan.service.UserService;
 import com.zh.loan.utils.DialogUtils;
 import com.zh.loan.utils.IntentUtils;
+import com.zh.loan.utils.StringUtils;
+
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -47,11 +51,12 @@ public class MyBillActivity extends BaseActivity<ActivityMyBillBinding> {
             allRefund();
         });
         binding.tvRepaymentOutdate.setOnClickListener((v) -> {
-            IntentUtils.doIntent(this,RepaymentActivity.class);
+            IntentUtils.doIntent(this,DelayRefundActivity.class);
         });
     }
 
     private void allRefund(  ) {
+        params.clear();
         HttpClient.Builder.getServer().allRefund(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
@@ -75,14 +80,19 @@ public class MyBillActivity extends BaseActivity<ActivityMyBillBinding> {
     }
 
     private void refundRecord(  ) {
-        HttpClient.Builder.getServer().refundRecord(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<BillListBean>() {
+        HttpClient.Builder.getServer().refundRecord(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
-            public void onSuccess(BaseBean<BillListBean> baseBean) {
-                binding.tvBalance.setText(baseBean.getData().getTotal_money()+"");
+            public void onSuccess(BaseBean<Map> baseBean) {
+                binding.tvBalance.setText(StringUtils.isEmpty((String)baseBean.getData().get("total_money"))?"0":(String)baseBean.getData().get("total_money"));
+                if((double)baseBean.getData().get("status") == 2){
+                    binding.tvOutdate.setVisibility(View.VISIBLE);
+                }else{
+                    binding.tvOutdate.setVisibility(View.GONE);
+                }
             }
 
             @Override
-            public void onError(BaseBean<BillListBean> baseBean) {
+            public void onError(BaseBean<Map> baseBean) {
                 tipDialog = DialogUtils.getFailDialog(MyBillActivity.this,  baseBean.getMsg(), true);
                 tipDialog.show();
             }

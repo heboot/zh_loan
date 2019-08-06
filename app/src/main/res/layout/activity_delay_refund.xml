@@ -40,44 +40,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/x18"
-            android:layout_marginTop="@dimen/y35"
+            android:layout_marginTop="@dimen/y40"
             android:textColor="#000000"
             android:textSize="@dimen/x55"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
+
         <TextView
-            android:visibility="gone"
-            android:id="@+id/tv_outdate"
-            android:text="您已延期，请尽快联系客服人员还款"
-            app:layout_constraintTop_toBottomOf="@+id/tv_balance"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_balance"
-            android:textColor="#FA4169"
-            android:textSize="@dimen/x14"
+            android:id="@+id/tv_end_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x18"
+            android:layout_marginTop="@dimen/y20"
+            android:text="截止日期"
+            android:textSize="@dimen/x12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_balance" />
 
-
-        <!--<TextView-->
-        <!--android:id="@+id/tv_end_date"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="@dimen/x18"-->
-        <!--android:layout_marginTop="@dimen/y20"-->
-        <!--android:text="截止日期"-->
-        <!--android:textSize="@dimen/x12"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/tv_balance" />-->
-
-        <!--<TextView-->
-        <!--android:textColor="#4D4D4D"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/y5"-->
-        <!--android:text="2019-90-90"-->
-        <!--android:textSize="@dimen/x14"-->
-        <!--app:layout_constraintLeft_toLeftOf="@+id/tv_end_date"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/tv_end_date" />-->
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y5"
+            android:textColor="#4D4D4D"
+            android:textSize="@dimen/x14"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_end_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_end_date" />
 
         <TextView
             android:id="@+id/tv_repayment"
@@ -86,25 +75,13 @@
             android:layout_marginTop="@dimen/y21"
             android:background="@drawable/bg_login_btn"
             android:gravity="center"
-            android:text="全部还款"
+            android:text="确认"
             android:textColor="#fff"
             android:textSize="@dimen/x14"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/v_bg" />
 
-        <TextView
-            android:id="@+id/tv_repayment_outdate"
-            android:layout_width="@dimen/x311"
-            android:layout_height="@dimen/y50"
-            android:layout_marginTop="@dimen/y21"
-            android:background="@drawable/bg_login_btn_border"
-            android:gravity="center"
-            android:text="延期还款"
-            android:textColor="#FA4169"
-            android:textSize="@dimen/x14"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_repayment" />
+
     </android.support.constraint.ConstraintLayout>
 </layout>
