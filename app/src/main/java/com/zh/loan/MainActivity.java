@@ -15,6 +15,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.MStatusBarUtils;
 import com.waw.hr.mutils.base.BaseBean;
@@ -65,7 +66,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initData() {
-
     }
 
     @Override
@@ -78,6 +78,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initListener() {
+        binding.prContainer.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+            @Override
+            public void onMoveTarget(int offset) {
+
+            }
+
+            @Override
+            public void onMoveRefreshView(int offset) {
+
+            }
+
+            @Override
+            public void onRefresh() {
+                myindex();
+            }
+        });
 
         binding.clytInfo.setOnClickListener((v) -> {
             if (UserService.getInstance().isLogin()) {
@@ -207,6 +223,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         HttpClient.Builder.getServer().myindex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
+                binding.prContainer.finishRefresh();
                 UserService.getInstance().setPhone((String) baseBean.getData().get("phone"));
                 UserService.getInstance().setHeadImg((String) baseBean.getData().get("headimg"));
                 UserService.getInstance().setSign((Double) baseBean.getData().get("sign"));
@@ -217,6 +234,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
             @Override
             public void onError(BaseBean<Map> baseBean) {
+                binding.prContainer.finishRefresh();
                 tipDialog = DialogUtils.getFailDialog(MainActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

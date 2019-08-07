@@ -131,7 +131,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/v_line"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="应还款"
+                    android:text="应还利息"
                     android:textColor="#ff888888"
                     android:textSize="@dimen/x13"></TextView>
 

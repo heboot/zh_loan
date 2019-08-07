@@ -7,6 +7,7 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.MStatusBarUtils;
 import com.waw.hr.mutils.base.BaseBean;
+import com.zh.loan.MainActivity;
 import com.zh.loan.R;
 import com.zh.loan.base.BaseActivity;
 import com.zh.loan.databinding.ActivityLoginBinding;
@@ -75,6 +76,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
             public void onSuccess(BaseBean<String> baseBean) {
                 dismissLoadingDialog();
                 UserService.getInstance().setToken(baseBean.getData());
+                IntentUtils.doIntent(LoginActivity.this, MainActivity.class);
                 finish();
             }
 

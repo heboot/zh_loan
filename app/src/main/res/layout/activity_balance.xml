@@ -6,6 +6,9 @@
         android:layout_height="match_parent">
 
         <View
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/v_bg"
             android:layout_width="0dp"
             android:layout_height="@dimen/y250"

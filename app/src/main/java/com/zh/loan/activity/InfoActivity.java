@@ -73,7 +73,9 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
 
     @Override
     public void initData() {
-        editInfo(true);
+        if(UserService.getInstance().getSign() == 1){
+            editInfo(true);
+        }
     }
 
     @Override
@@ -215,13 +217,16 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
                     loadingDialog.dismiss();
                 }
                 if (before) {
-                    binding.etName.setText((String) baseBean.getData().get("truename"));
-                    binding.etMobile.setText((String) baseBean.getData().get("phone1"));
-                    binding.etRelevanceMobile.setText((String) baseBean.getData().get("phone2"));
-                    binding.etAddress.setText((String) baseBean.getData().get("city"));
-                    binding.etBankNum.setText((String) baseBean.getData().get("bank_card"));
-                    ImageUtils.showImage(InfoActivity.this, binding.ivIdcardReverse, (String) baseBean.getData().get("id_card1"));
-                    ImageUtils.showImage(InfoActivity.this, binding.ivIdcardFace, (String) baseBean.getData().get("id_card2"));
+                    if (UserService.getInstance().getSign() == 1) {
+                        binding.etName.setText((String) baseBean.getData().get("truename"));
+                        binding.etMobile.setText((String) baseBean.getData().get("phone1"));
+                        binding.etRelevanceMobile.setText((String) baseBean.getData().get("phone2"));
+                        binding.etAddress.setText((String) baseBean.getData().get("city"));
+                        binding.etBankNum.setText((String) baseBean.getData().get("bank_card"));
+                        ImageUtils.showImage(InfoActivity.this, binding.ivIdcardReverse, (String) baseBean.getData().get("id_card1"));
+                        ImageUtils.showImage(InfoActivity.this, binding.ivIdcardFace, (String) baseBean.getData().get("id_card2"));
+                    }
+
 
                 } else {
                     tipDialog = DialogUtils.getSuclDialog(InfoActivity.this, baseBean.getMsg(), true);
@@ -240,7 +245,7 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
                 if (loadingDialog != null && loadingDialog.isShowing()) {
                     loadingDialog.dismiss();
                 }
-                tipDialog = DialogUtils.getFailDialog(InfoActivity.this,   baseBean.getMsg(), true);
+                tipDialog = DialogUtils.getFailDialog(InfoActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }
         });

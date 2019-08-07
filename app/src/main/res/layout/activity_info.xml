@@ -21,6 +21,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"></include>
 
+
         <LinearLayout
             android:id="@+id/llyt1"
             android:layout_width="0dp"
@@ -41,6 +42,7 @@
                 android:textSize="@dimen/x15" />
 
             <EditText
+                android:maxLines="1"
                 android:id="@+id/et_name"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/y40"
@@ -55,6 +57,16 @@
 
 
         </LinearLayout>
+
+        <View
+            android:layout_marginTop="@dimen/y10"
+            app:layout_constraintTop_toBottomOf="@+id/llyt1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/v1"
+            android:background="#e5e5e5"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"></View>
 
         <LinearLayout
             android:id="@+id/llyt2"
@@ -75,7 +87,7 @@
                 android:textColor="#6B7072"
                 android:textSize="@dimen/x15" />
 
-            <EditText
+            <EditText  android:maxLines="1"
                 android:id="@+id/et_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/y40"
@@ -91,7 +103,15 @@
 
 
         </LinearLayout>
-
+        <View
+            android:layout_marginTop="@dimen/y10"
+            app:layout_constraintTop_toBottomOf="@+id/llyt2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/v2"
+            android:background="#e5e5e5"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"></View>
         <LinearLayout
             android:id="@+id/llyt3"
             android:layout_width="0dp"
@@ -111,7 +131,7 @@
                 android:textColor="#6B7072"
                 android:textSize="@dimen/x15" />
 
-            <EditText
+            <EditText  android:maxLines="1"
                 android:id="@+id/et_relevance_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/y40"
@@ -127,7 +147,15 @@
 
 
         </LinearLayout>
-
+        <View
+            android:layout_marginTop="@dimen/y10"
+            app:layout_constraintTop_toBottomOf="@+id/llyt3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/v3"
+            android:background="#e5e5e5"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"></View>
         <LinearLayout
             android:id="@+id/llyt4"
             android:layout_width="0dp"
@@ -147,7 +175,7 @@
                 android:textColor="#6B7072"
                 android:textSize="@dimen/x15" />
 
-            <EditText
+            <EditText  android:maxLines="1"
                 android:id="@+id/et_address"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/y40"
@@ -162,7 +190,15 @@
 
 
         </LinearLayout>
-
+        <View
+            android:layout_marginTop="@dimen/y10"
+            app:layout_constraintTop_toBottomOf="@+id/llyt4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/v4"
+            android:background="#e5e5e5"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"></View>
         <LinearLayout
             android:id="@+id/llyt5"
             android:layout_width="0dp"
@@ -182,7 +218,7 @@
                 android:textColor="#6B7072"
                 android:textSize="@dimen/x15" />
 
-            <EditText
+            <EditText  android:maxLines="1"
                 android:id="@+id/et_bank_num"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/y40"
@@ -198,13 +234,21 @@
 
 
         </LinearLayout>
-
+        <View
+            android:layout_marginTop="@dimen/y10"
+            app:layout_constraintTop_toBottomOf="@+id/llyt5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/v5"
+            android:background="#e5e5e5"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"></View>
         <LinearLayout
             android:id="@+id/llyt6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/x15"
-            android:layout_marginTop="@dimen/y20"
+            android:layout_marginTop="@dimen/y30"
             android:gravity="left|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -236,7 +280,15 @@
 
 
         </LinearLayout>
-
+        <View
+            android:layout_marginTop="@dimen/y20"
+            app:layout_constraintTop_toBottomOf="@+id/llyt6"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/v6"
+            android:background="#e5e5e5"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"></View>
         <TextView
             android:id="@+id/tv_save"
             android:layout_width="@dimen/x311"

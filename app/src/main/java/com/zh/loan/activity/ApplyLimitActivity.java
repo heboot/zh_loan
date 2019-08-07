@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.http.HttpClient;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.MStatusBarUtils;
 import com.waw.hr.mutils.base.BaseBean;
@@ -24,6 +25,7 @@ import com.zh.loan.utils.IntentUtils;
 import com.zh.loan.utils.SignUtils;
 import com.zh.loan.utils.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +40,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
 
     private int type = 0;
 
-    private List<String> titles,displayTitles;
+    private List<String> titles, displayTitles;
 
     private List<Double> rates;
 
@@ -55,7 +57,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
         MStatusBarUtils.setActivityLightMode(this);
         QMUIStatusBarHelper.translucent(this);
         binding.includeToolbar.tvTitle.setText("申请额度");
-        loadingDialog = DialogUtils.getLoadingDialog(this,"",false);
+        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
     }
 
     @Override
@@ -68,7 +70,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
         binding.includeToolbar.vBack.setOnClickListener((v) -> {
             finish();
         });
-        binding.vDeadline.setOnClickListener((v)->{
+        binding.vDeadline.setOnClickListener((v) -> {
             chooseTimeDialog.show();
         });
         binding.etMoney.addTextChangedListener(new TextWatcher() {
@@ -87,27 +89,30 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
 
             }
         });
-        binding.tvSubmit.setOnClickListener((v)->{
-            if(StringUtils.isEmpty(binding.etMoney.getText())){
+        binding.tvSubmit.setOnClickListener((v) -> {
+            if (StringUtils.isEmpty(binding.etMoney.getText())) {
                 tipDialog = DialogUtils.getFailDialog(ApplyLimitActivity.this, "请输入金额", true);
                 tipDialog.show();
-                return ;
+                return;
             }
 
-            if(Integer.parseInt(binding.etMoney.getText().toString()) < 1000 || Integer.parseInt(binding.etMoney.getText().toString()) >8000){
+            if (Integer.parseInt(binding.etMoney.getText().toString()) < 1000 || Integer.parseInt(binding.etMoney.getText().toString()) > 8000) {
                 tipDialog = DialogUtils.getFailDialog(ApplyLimitActivity.this, "申请额度范围1000~8000元", true);
                 tipDialog.show();
-                return ;
+                return;
             }
             applyLimit();
         });
     }
 
-    private String calculate(String money){
-        if(StringUtils.isEmpty(money)){
+    private String calculate(String money) {
+        if (StringUtils.isEmpty(money)) {
             return "";
         }
-        repaymentMoney = Double.parseDouble(money) + (Double.parseDouble(money) * rates.get(type));
+        repaymentMoney = (Double.parseDouble(money) * rates.get(type));
+        LogUtil.e(TAG, "原始值" + repaymentMoney);
+        BigDecimal b = new BigDecimal(repaymentMoney);
+        repaymentMoney = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         return repaymentMoney + "(利率" + rates.get(type) + ")";
     }
 
@@ -119,9 +124,9 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
                 .addItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        type = i ;
-                        binding.tvDeadline.setText(items[i] );
-                        if(!StringUtils.isEmpty(binding.etMoney.getText())){
+                        type = i;
+                        binding.tvDeadline.setText(items[i]);
+                        if (!StringUtils.isEmpty(binding.etMoney.getText())) {
                             binding.tvRepaymentTip.setText(calculate(binding.etMoney.getText().toString()));
                         }
                         chooseTimeDialog.dismiss();
@@ -130,14 +135,14 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
                 .create();
     }
 
-    private void applyLimit(){
+    private void applyLimit() {
         params = SignUtils.getNormalParams();
-        params.put(MKey.TYPE,titles.get(type));
-        params.put(MKey.MONEY,binding.etMoney.getText());
-        params.put(MKey.RATE,rates.get(type)+"");
-        params.put(MKey.REPAYMENT,repaymentMoney);
+        params.put(MKey.TYPE, titles.get(type));
+        params.put(MKey.MONEY, binding.etMoney.getText());
+        params.put(MKey.RATE, rates.get(type) + "");
+        params.put(MKey.REPAYMENT, repaymentMoney);
         loadingDialog.show();
-        HttpClient.Builder.getServer().applyLimit(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().applyLimit(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 dismissLoadingDialog();
@@ -145,7 +150,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
                 tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        IntentUtils.intent2StatusTipActivity(ApplyLimitActivity.this,"审核结果","审核处理中","已提交申请，等待审核处理",R.mipmap.icon_wating);
+                        IntentUtils.intent2StatusTipActivity(ApplyLimitActivity.this, "审核结果", "审核处理中", "已提交申请，等待审核处理", R.mipmap.icon_wating);
                         finish();
                     }
                 });
@@ -161,7 +166,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
         });
     }
 
-    private void rateitem(){
+    private void rateitem() {
         HttpClient.Builder.getServer().rateitem(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<List<RateModel>>() {
             @Override
             public void onSuccess(BaseBean<List<RateModel>> baseBean) {
@@ -169,7 +174,7 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
                 titles = new ArrayList<>();
                 rates = new ArrayList<>();
                 displayTitles = new ArrayList<>();
-                for(RateModel  rateModel : baseBean.getData()){
+                for (RateModel rateModel : baseBean.getData()) {
                     titles.add(rateModel.getDuration());
                     displayTitles.add(rateModel.getDuration() + "天");
                     rates.add(Double.parseDouble(rateModel.getRate()));
