@@ -1,10 +1,7 @@
 package com.zh.loan.activity;
 
-import android.content.DialogInterface;
-
 import com.example.http.HttpClient;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
-import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.MStatusBarUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.zh.loan.R;
@@ -14,7 +11,6 @@ import com.zh.loan.http.HttpObserver;
 import com.zh.loan.service.UserService;
 import com.zh.loan.utils.DialogUtils;
 import com.zh.loan.utils.IntentUtils;
-import com.zh.loan.utils.SignUtils;
 import com.zh.loan.utils.StringUtils;
 
 import java.util.Map;
@@ -25,6 +21,10 @@ import io.reactivex.schedulers.Schedulers;
 public class MyBalanceActivity extends BaseActivity<ActivityBalanceBinding> {
 
     private String bank_card;
+
+    private double status;
+
+    private String tipMsg;
 
     @Override
     protected int getLayoutId() {
@@ -62,6 +62,11 @@ public class MyBalanceActivity extends BaseActivity<ActivityBalanceBinding> {
             IntentUtils.intent2CashActivity(this,binding.tvBalance.getText().toString(),bank_card);
         });
         binding.clyt2.setOnClickListener((v)->{
+            if(status == 2){
+                tipDialog = DialogUtils.getFailDialog(MyBalanceActivity.this,StringUtils.isEmpty(tipMsg)?"暂时没有可处理的账单":tipMsg, true);
+                tipDialog.show();
+                return;
+            }
             IntentUtils.doIntent(this,MyBillActivity.class);
         });
     }
@@ -73,6 +78,8 @@ public class MyBalanceActivity extends BaseActivity<ActivityBalanceBinding> {
 
                 binding.tvBalance.setText(StringUtils.isEmpty((String)baseBean.getData().get("money"))?"0.0":(String)baseBean.getData().get("money"));
                 bank_card = (String)baseBean.getData().get("bank_card");
+                status = (double)baseBean.getData().get("status");
+                tipMsg  = (String)baseBean.getData().get("msg");
 
             }
 

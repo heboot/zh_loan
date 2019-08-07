@@ -56,11 +56,11 @@ public class CashActivity extends BaseActivity<ActivityCashBinding> {
             finish();
         });
         binding.tvCash.setOnClickListener((v) -> {
-//            if (StringUtils.isEmpty(balance) || Double.parseDouble(balance) <= 0) {
-//                tipDialog = DialogUtils.getFailDialog(CashActivity.this, "没有可用余额，不能提现", true);
-//                tipDialog.show();
-//                return;
-//            }
+            if (StringUtils.isEmpty(balance) || Double.parseDouble(balance) <= 0) {
+                tipDialog = DialogUtils.getFailDialog(CashActivity.this, "没有可用余额，不能提现", true);
+                tipDialog.show();
+                return;
+            }
 //            if (StringUtils.isEmpty(bankNumber) ) {
 //                tipDialog = DialogUtils.getFailDialog(CashActivity.this, "没有可用银行卡，不能提现", true);
 //                tipDialog.show();

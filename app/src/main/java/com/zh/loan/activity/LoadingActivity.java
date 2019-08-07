@@ -5,6 +5,7 @@ import com.waw.hr.mutils.MStatusBarUtils;
 import com.zh.loan.MainActivity;
 import com.zh.loan.R;
 import com.zh.loan.base.BaseActivity;
+import com.zh.loan.service.UserService;
 import com.zh.loan.utils.IntentUtils;
 import com.zh.loan.utils.ObserableUtils;
 
@@ -30,8 +31,13 @@ public class LoadingActivity extends BaseActivity {
             @Override
             public void onNext(Integer integer) {
                 if(integer == 0){
-                    IntentUtils.doIntent(LoadingActivity.this, MainActivity.class);
-                    finish();
+                    if(UserService.getInstance().isLoginValue()){
+                        IntentUtils.doIntent(LoadingActivity.this, MainActivity.class);
+                        finish();
+                    }else{
+                        IntentUtils.doIntent(LoadingActivity.this, LoginActivity.class);
+                        finish();
+                    }
                 }
             }
 

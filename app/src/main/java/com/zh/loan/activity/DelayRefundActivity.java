@@ -73,18 +73,12 @@ public class DelayRefundActivity extends BaseActivity<ActivityDelayRefundBinding
                     date = (String)  ((Map)baseBean.getData()).get("day");
                     binding.tvBalance.setText( money+"");
                     binding.tvDate.setText(date);
-                    if(!isFirst){
-                        tipDialog = DialogUtils.getSuclDialog(DelayRefundActivity.this,   baseBean.getMsg(), true);
-                        tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialogInterface) {
-                                finish();
-                            }
-                        });
-                        tipDialog.show();
-                    }
-                }
 
+                }
+                if(!isFirst){
+                    IntentUtils.intent2StatusTipActivity(DelayRefundActivity.this,"还款结果","申请成功","",R.mipmap.icon_wating);
+                    finish();
+                }
             }
 
             @Override

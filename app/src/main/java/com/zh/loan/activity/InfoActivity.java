@@ -116,7 +116,7 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
                 // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
                 // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                 // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                ImageUtils.showImage(this, binding.ivIdcardFace, selectList.get(0).getCompressPath());
+//                ImageUtils.showImage(this, binding.ivIdcardFace, selectList.get(0).getCompressPath());
                 uploadImage(true, selectList.get(0).getCompressPath());
             } else {
                 // 图片、视频、音频选择结果回调
@@ -127,7 +127,7 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
                 // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
                 // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                 // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                ImageUtils.showImage(this, binding.ivIdcardReverse, selectList2.get(0).getCompressPath());
+//                ImageUtils.showImage(this, binding.ivIdcardReverse, selectList2.get(0).getCompressPath());
                 uploadImage(false, selectList2.get(0).getCompressPath());
             }
 //

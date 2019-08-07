@@ -58,26 +58,26 @@
             android:layout_height="wrap_content" />
 
 
-        <!--<TextView-->
-        <!--android:id="@+id/tv_end_date"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="@dimen/x18"-->
-        <!--android:layout_marginTop="@dimen/y20"-->
-        <!--android:text="截止日期"-->
-        <!--android:textSize="@dimen/x12"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/tv_balance" />-->
+        <TextView
+            android:id="@+id/tv_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x18"
+            android:layout_marginTop="@dimen/y20"
+            android:text="截止日期"
+            android:textSize="@dimen/x12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_balance" />
 
-        <!--<TextView-->
-        <!--android:textColor="#4D4D4D"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/y5"-->
-        <!--android:text="2019-90-90"-->
-        <!--android:textSize="@dimen/x14"-->
-        <!--app:layout_constraintLeft_toLeftOf="@+id/tv_end_date"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/tv_end_date" />-->
+        <TextView
+            android:id="@+id/tv_enddatev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y5"
+            android:textColor="#4D4D4D"
+            android:textSize="@dimen/x14"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_end_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_end_date" />
 
         <TextView
             android:id="@+id/tv_repayment"

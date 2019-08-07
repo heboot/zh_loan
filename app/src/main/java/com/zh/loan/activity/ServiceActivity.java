@@ -76,7 +76,7 @@ public class ServiceActivity extends BaseActivity<ActivityServiceBinding> {
                 tipDialog.show();
                 return;
             }
-            final String qqUrl = "mqqwpa://im/chat?chat_type=wpa&uin=" + "2097913553" + "&version=1";
+            final String qqUrl = "mqqwpa://im/chat?chat_type=wpa&uin=" + qq + "&version=1";
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(qqUrl)));
         });
         binding.clytMobile.setOnClickListener((v) -> {
