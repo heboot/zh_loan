@@ -88,6 +88,12 @@ public interface HttpClient {
     @GET("api/myindex")
     Observable<BaseBean<Map>> myindex(@Header("token") String token);
 
+    @GET("api/subRefund1")
+    Observable<BaseBean<Object>> subRefund1(@Header("token") String token);
+
+    @GET("api/subApply")
+    Observable<BaseBean<Object>> subApply(@Header("token") String token);
+
     @FormUrlEncoded
     @POST("api/withdrawDeposit")
     Observable<BaseBean<Object>> withdrawDeposit(@Header("token") String token,@FieldMap Map<String, Object> params);

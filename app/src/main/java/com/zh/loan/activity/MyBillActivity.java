@@ -10,6 +10,7 @@ import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.BillListBean;
 import com.zh.loan.R;
 import com.zh.loan.base.BaseActivity;
+import com.zh.loan.common.TipType;
 import com.zh.loan.databinding.ActivityMyBillBinding;
 import com.zh.loan.http.HttpObserver;
 import com.zh.loan.service.UserService;
@@ -62,7 +63,7 @@ public class MyBillActivity extends BaseActivity<ActivityMyBillBinding> {
                 return;
 
             } else if (refund_status == 4) {
-                IntentUtils.intent2StatusTipActivity(this, "还款结果", "还款失败", "", R.mipmap.icon_fail);
+                IntentUtils.intent2StatusTipActivity(this, "还款结果", "还款失败", "", R.mipmap.icon_fail, TipType.REPAYMENT_FAIL);
                 return;
             }
 
@@ -73,7 +74,7 @@ public class MyBillActivity extends BaseActivity<ActivityMyBillBinding> {
                 IntentUtils.intent2StatusTipActivity(this, "审核结果", "审核处理中", "已提交申请，等待审核处理", R.mipmap.icon_wating);
                 return;
             } else if (delay_status == 3) {
-                IntentUtils.intent2StatusTipActivity(this, "申请失败", "还款失败", "", R.mipmap.icon_fail);
+                IntentUtils.intent2StatusTipActivity(this, "申请失败", "申请失败", "", R.mipmap.icon_fail, TipType.APPLY_FAIL);
                 return;
             }
             IntentUtils.doIntent(this, DelayRefundActivity.class);

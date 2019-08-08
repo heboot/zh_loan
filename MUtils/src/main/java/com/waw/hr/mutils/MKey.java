@@ -43,4 +43,5 @@ public class MKey {
     public static final String DAY = "day";
     public static final String TIP = "tip";
     public static final String TIP2 = "tip2";
+    public static final String TIP_TYPE = "tip_type";
 }

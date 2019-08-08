@@ -76,7 +76,7 @@ public class DelayRefundActivity extends BaseActivity<ActivityDelayRefundBinding
 
                 }
                 if(!isFirst){
-                    IntentUtils.intent2StatusTipActivity(DelayRefundActivity.this,"还款结果","申请成功","",R.mipmap.icon_wating);
+                    IntentUtils.intent2StatusTipActivity(DelayRefundActivity.this,"申请结果","审核处理中","",R.mipmap.icon_wating);
                     finish();
                 }
             }

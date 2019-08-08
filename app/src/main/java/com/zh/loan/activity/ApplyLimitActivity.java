@@ -146,15 +146,8 @@ public class ApplyLimitActivity extends BaseActivity<ActivityApplyLimitBinding> 
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 dismissLoadingDialog();
-                tipDialog = DialogUtils.getSuclDialog(ApplyLimitActivity.this, baseBean.getMsg(), true);
-                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        IntentUtils.intent2StatusTipActivity(ApplyLimitActivity.this, "审核结果", "审核处理中", "已提交申请，等待审核处理", R.mipmap.icon_wating);
-                        finish();
-                    }
-                });
-                tipDialog.show();
+                IntentUtils.intent2StatusTipActivity(ApplyLimitActivity.this, "审核结果", "审核处理中", "已提交申请，等待审核处理", R.mipmap.icon_wating);
+                finish();
             }
 
             @Override
