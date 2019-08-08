@@ -25,7 +25,4 @@ public class MRefreshView extends QMUIPullRefreshLayout {
         return new MMMV(getContext());
     }
 
-
-
-
 }
