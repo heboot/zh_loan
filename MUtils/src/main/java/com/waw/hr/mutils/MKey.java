@@ -30,6 +30,8 @@ public class MKey {
 
     public static final String PASSWORD = "password";
 
+    public static final String ADDRESS_LIST = "address_list";
+
     public static final String AFFPASSWORD = "affpassword";
 
 

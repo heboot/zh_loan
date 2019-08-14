@@ -53,14 +53,14 @@ public class MyBalanceActivity extends BaseActivity<ActivityBalanceBinding> {
         binding.includeToolbar.vBack.setOnClickListener((v) -> {
             finish();
         });
-        binding.clyt1.setOnClickListener((v)->{
-            if(StringUtils.isEmpty(binding.tvBalance.getText())){
-                tipDialog = DialogUtils.getFailDialog(MyBalanceActivity.this,"暂无可提现余额", true);
-                tipDialog.show();
-                return;
-            }
-            IntentUtils.intent2CashActivity(this,binding.tvBalance.getText().toString(),bank_card);
-        });
+//        binding.clyt1.setOnClickListener((v)->{
+//            if(StringUtils.isEmpty(binding.tvBalance.getText())){
+//                tipDialog = DialogUtils.getFailDialog(MyBalanceActivity.this,"暂无可提现余额", true);
+//                tipDialog.show();
+//                return;
+//            }
+//            IntentUtils.intent2CashActivity(this,binding.tvBalance.getText().toString(),bank_card);
+//        });
         binding.clyt2.setOnClickListener((v)->{
             if(status == 2){
                 tipDialog = DialogUtils.getFailDialog(MyBalanceActivity.this,StringUtils.isEmpty(tipMsg)?"暂时没有可处理的账单":tipMsg, true);
