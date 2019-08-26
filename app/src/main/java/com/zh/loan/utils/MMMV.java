@@ -3,6 +3,7 @@ package com.zh.loan.utils;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
@@ -28,8 +29,11 @@ public class MMMV extends LinearLayout  implements QMUIPullRefreshLayout.IRefres
         view.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,300));
         ProgressBar pb = view.findViewById(R.id.pb);
         ColorStateList colorStateList = ColorStateList.valueOf(0xffFA4169);
-        pb.setIndeterminateTintList(colorStateList);
-        pb.setIndeterminateTintMode(PorterDuff.Mode.SRC_ATOP);
+        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.LOLLIPOP){
+            pb.setIndeterminateTintList(colorStateList);
+            pb.setIndeterminateTintMode(PorterDuff.Mode.SRC_ATOP);
+        }
+
 
     }
 

@@ -150,7 +150,7 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> impl
     @Override
     public void initListener() {
         binding.tvSendSms.setOnClickListener((v) -> {
-            binding.tvSendSms.setEnabled(false);
+
             sendCode();
         });
         binding.tvLogin.setOnClickListener((v) -> {
@@ -247,7 +247,7 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> impl
             tipDialog.show();
             return;
         }
-
+        binding.tvSendSms.setEnabled(false);
         params.put(MKey.PHONE, binding.etMobile.getText());
 
         HttpClient.Builder.getServer().getcode(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
@@ -263,6 +263,7 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> impl
 
             @Override
             public void onError(BaseBean<String> baseBean) {
+                binding.tvSendSms.setEnabled(true);
                 tipDialog = DialogUtils.getFailDialog(RegisterActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }
