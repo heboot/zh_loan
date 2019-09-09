@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y67"
-            android:text="输入手机号"
+            android:text="输入密码"
             android:textColor="#ff69707f"
             android:textSize="@dimen/x12"
             app:layout_constraintLeft_toLeftOf="@+id/tv_mobile_title"

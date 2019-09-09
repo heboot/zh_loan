@@ -22,6 +22,7 @@ import com.waw.hr.mutils.base.BaseBean;
 import com.zh.loan.activity.ApplyLimitActivity;
 import com.zh.loan.activity.InfoActivity;
 import com.zh.loan.activity.MyBalanceActivity;
+import com.zh.loan.activity.MyBillActivity;
 import com.zh.loan.activity.ServiceActivity;
 import com.zh.loan.activity.SettingActivity;
 import com.zh.loan.base.BaseActivity;
@@ -31,6 +32,7 @@ import com.zh.loan.service.UserService;
 import com.zh.loan.utils.DialogUtils;
 import com.zh.loan.utils.ImageUtils;
 import com.zh.loan.utils.IntentUtils;
+import com.zh.loan.utils.StringUtils;
 
 import java.io.File;
 import java.util.List;
@@ -51,6 +53,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private final int REQUEST_CAMERA = 40001, REQUEST_PHOTO = 40002;
 
     private QMUIDialog qmuiDialog;
+
+    private double status;
+
+    private String tipMsg;
+
 
     @Override
     protected int getLayoutId() {
@@ -103,7 +110,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         binding.clytBalance.setOnClickListener((v) -> {
             if (UserService.getInstance().isLogin()) {
-                IntentUtils.doIntent(this, MyBalanceActivity.class);
+//                IntentUtils.doIntent(this, MyBalanceActivity.class);
+                if (status == 2) {
+                    tipDialog = DialogUtils.getFailDialog(MainActivity.this, StringUtils.isEmpty(tipMsg) ? "暂时没有可处理的账单" : tipMsg, true);
+                    tipDialog.show();
+                    return;
+                }
+                IntentUtils.doIntent(this, MyBillActivity.class);
             }
         });
 
@@ -116,12 +129,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     if (qmuiDialog == null) {
                         qmuiDialog = new QMUIDialog.MessageDialogBuilder(this)
                                 .setMessage("当前账户状态不能再次申请额度，请检查是否有额度未使用和账单未还清").
-                                addAction("确定", new QMUIDialogAction.ActionListener() {
-                                    @Override
-                                    public void onClick(QMUIDialog dialog, int index) {
-                                        qmuiDialog.dismiss();
-                                    }
-                                })
+                                        addAction("确定", new QMUIDialogAction.ActionListener() {
+                                            @Override
+                                            public void onClick(QMUIDialog dialog, int index) {
+                                                qmuiDialog.dismiss();
+                                            }
+                                        })
                                 .create();
                     }
                     qmuiDialog.show();
@@ -166,6 +179,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         binding.vSetting.setOnClickListener((v) -> {
             IntentUtils.doIntent(this, SettingActivity.class);
+        });
+    }
+
+    private void balance() {
+        HttpClient.Builder.getServer().myAccount(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
+            @Override
+            public void onSuccess(BaseBean<Map> baseBean) {
+                status = (double) baseBean.getData().get("status");
+                tipMsg = (String) baseBean.getData().get("msg");
+            }
+
+            @Override
+            public void onError(BaseBean<Map> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(MainActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
         });
     }
 
@@ -220,6 +249,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
 
     private void myindex() {
+        balance();
         HttpClient.Builder.getServer().myindex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
