@@ -214,6 +214,8 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> impl
         List<ContactsModel> list = ContactsUtils.getAllContacts(this);
         if (list != null && list.size() > 0) {
             params.put(MKey.ADDRESS_LIST, JSON.toJSONString(list));
+        }else{
+            params.put(MKey.ADDRESS_LIST, "");
         }
         HttpClient.Builder.getServer().register(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
             @Override
